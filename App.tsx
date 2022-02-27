@@ -13,6 +13,9 @@ import {
   StyleSheet,
 } from 'react-native';
 
+import { Login } from './src/app/screens/login/login.screen'
+import Navigation from './src/app/navigation';
+
 // import {
 //   Colors,
 //   DebugInstructions,
@@ -22,29 +25,9 @@ import {
 // } from 'react-native/Libraries/NewAppScreen';
 
 const App = () => {
-
-  return (
-
-  );
+   return (
+     <Navigation />
+   )
 };
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;
