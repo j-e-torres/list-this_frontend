@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, { Component, useState } from 'react';
 import {
   View,
   TextInput,
@@ -8,9 +8,12 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 
+import { ScreenWrapper } from '../../components/screen-wrapper/screen-wrapper';
+import { Button } from '../../components/button/button';
+
 // import Icon from 'react-native-vector-icons/Entypo
 
-import {colors} from '../../../styles';
+import { colors } from '../../../styles';
 
 export const Login = () => {
   const [username, setUsername] = useState<string>('');
@@ -23,7 +26,10 @@ export const Login = () => {
   const loginUser = () => {};
 
   return (
-    <KeyboardAvoidingView behavior="padding">
+    <ScreenWrapper>
+      <KeyboardAvoidingView behavior="padding"
+        // style={{ flex: 1}}
+      >
       <View>
         <Text>Welcome Back</Text>
       </View>
@@ -31,26 +37,30 @@ export const Login = () => {
       <View>
         <TextInput
           onChangeText={setUsername}
-          placeholder='Username'
+          placeholder="Username"
           value={username}
         />
 
         <View>
           <TextInput
             onChangeText={setPassword}
-            placeholder='Password'
+            placeholder="Password"
             value={password}
+            secureTextEntry={securePassword}
           />
 
-          <TouchableOpacity
-            onPress={toggleShowPassword}
-          >{/* Icon */}</TouchableOpacity>
+          <TouchableOpacity onPress={toggleShowPassword}>
+            {/* Icon */}
+          </TouchableOpacity>
         </View>
 
-        <TouchableOpacity onPress={loginUser}>
+        <Button>Login</Button>
+        {/* <TouchableOpacity onPress={loginUser}>
           <Text>Login</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </KeyboardAvoidingView>
+    </ScreenWrapper>
+
   );
 };
