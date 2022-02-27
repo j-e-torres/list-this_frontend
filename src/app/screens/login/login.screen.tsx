@@ -27,11 +27,9 @@ export const Login = () => {
 
   return (
     <ScreenWrapper>
-      <KeyboardAvoidingView behavior="padding"
-        // style={{ flex: 1}}
-      >
+      <KeyboardAvoidingView behavior="padding">
       <View>
-        <Text>Welcome Back</Text>
+        <Text style={styles.title}>Welcome Back</Text>
       </View>
 
       <View>
@@ -39,6 +37,7 @@ export const Login = () => {
           onChangeText={setUsername}
           placeholder="Username"
           value={username}
+          style={styles.input}
         />
 
         <View>
@@ -47,6 +46,8 @@ export const Login = () => {
             placeholder="Password"
             value={password}
             secureTextEntry={securePassword}
+            style={styles.input}
+
           />
 
           <TouchableOpacity onPress={toggleShowPassword}>
@@ -64,3 +65,22 @@ export const Login = () => {
 
   );
 };
+
+const styles = StyleSheet.create({
+  title: {
+    textAlign: 'center',
+    fontSize: 30,
+    color: colors.lightBlack,
+    marginBottom: 30,
+  },
+
+  input: {
+    height: 50,
+    marginBottom: 30,
+    padding: 4,
+    fontSize: 25,
+    borderBottomWidth: 1,
+    borderColor: colors.lightOrange,
+    color: colors.lightBlack,
+  }
+});
