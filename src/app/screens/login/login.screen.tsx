@@ -7,11 +7,10 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/Entypo';
 
 import { ScreenWrapper } from '../../components/screen-wrapper/screen-wrapper';
 import { Button } from '../../components/button/button';
-
-// import Icon from 'react-native-vector-icons/Entypo
 
 import { colors } from '../../../styles';
 
@@ -23,46 +22,51 @@ export const Login = () => {
 
   const toggleShowPassword = () => setSecurePassword(!securePassword);
 
-  const loginUser = () => {};
+  const loginUser = () => {
+    console.log('login pressed');
+  };
 
   return (
     <ScreenWrapper>
       <KeyboardAvoidingView behavior="padding">
-      <View>
-        <Text style={styles.title}>Welcome Back</Text>
-      </View>
-
-      <View>
-        <TextInput
-          onChangeText={setUsername}
-          placeholder="Username"
-          value={username}
-          style={styles.input}
-        />
+        <View>
+          <Text style={styles.title}>Welcome Back</Text>
+        </View>
 
         <View>
           <TextInput
-            onChangeText={setPassword}
-            placeholder="Password"
-            value={password}
-            secureTextEntry={securePassword}
+            onChangeText={setUsername}
+            placeholder="Username"
+            value={username}
             style={styles.input}
-
           />
 
-          <TouchableOpacity onPress={toggleShowPassword}>
-            {/* Icon */}
-          </TouchableOpacity>
+          <View
+            style={{
+              flexDirection: 'row',
+              display: 'flex',
+            }}>
+            <TextInput
+              onChangeText={setPassword}
+              placeholder="Password"
+              value={password}
+              secureTextEntry={securePassword}
+              style={[styles.input, { flex: 1 }]}
+            />
+
+            <Icon
+              name={securePassword ? 'eye' : 'eye-with-line'}
+              size={20}
+              color={colors.lightBlack}
+              style={[styles.input]}
+              onPress={toggleShowPassword}
+            />
+          </View>
+
+          <Button onPress={loginUser}>Login</Button>
         </View>
-
-        <Button>Login</Button>
-        {/* <TouchableOpacity onPress={loginUser}>
-          <Text>Login</Text>
-        </TouchableOpacity> */}
-      </View>
-    </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
     </ScreenWrapper>
-
   );
 };
 
@@ -82,5 +86,5 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: colors.lightOrange,
     color: colors.lightBlack,
-  }
+  },
 });

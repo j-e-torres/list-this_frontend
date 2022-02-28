@@ -13,6 +13,7 @@ module.exports = {
         '@typescript-eslint/no-unused-vars': 'off',
         'prettier/prettier': 'off',
         'keyboard-spacing': 'off',
+        'react-native/no-inline-styles': 'off',
       },
     },
   ],
