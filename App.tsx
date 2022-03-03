@@ -9,23 +9,19 @@
 //  */
 
 import React from 'react';
-// import {
-//   StyleSheet,
-// } from 'react-native';
+import { Provider } from 'react-redux';
 
-// import { Login } from './src/app/screens/login/login.screen'
+import { configureStoreApp } from './src/stores/reducers/configureStore';
 import Navigation from './src/app/navigation';
 
-// // import {
-// //   Colors,
-// //   DebugInstructions,
-// //   Header,
-// //   LearnMoreLinks,
-// //   ReloadInstructions,
-// // } from 'react-native/Libraries/NewAppScreen';
+const store = configureStoreApp();
 
 const App = () => {
-  return <Navigation />;
+  return (
+    <Provider store={store}>
+      <Navigation />
+    </Provider>
+  );
 };
 
 export default App;

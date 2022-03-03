@@ -1,5 +1,5 @@
-import { AuthReducer} from '../auth/slice';
+import { AuthState } from '../auth/slice/auth.slice';
 
 export interface RootState {
-  auth?: AuthReducer
+  auth?: AuthState;
 }
