@@ -26,12 +26,5 @@ export const configureStoreApp = () => {
     enhancers,
   });
 
-
-  if (module.hot) {
-    module.hot.accept('./reducers', () => {
-      forceReducerReload(store);
-    });
-  }
-
   return store;
 };
