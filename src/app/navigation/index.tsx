@@ -1,13 +1,12 @@
-import React, {Component} from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import React, { Component } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { Login } from '../screens/login/login.screen'
+import { Login } from '../screens/login/login.screen';
 
 const Stack = createNativeStackNavigator();
 
 export default class Navigation extends Component {
-
   // if (state.isLoading) {
   //   // We haven't finished checking for the token yet
   //   return <SplashScreen />;
@@ -17,7 +16,7 @@ export default class Navigation extends Component {
     return (
       <NavigationContainer>
         <Stack.Navigator>
-        <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Login" component={Login} />
 
           {/* {isLoggedIn ? (
             // Screens for logged in users

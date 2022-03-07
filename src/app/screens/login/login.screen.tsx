@@ -12,6 +12,8 @@ import Icon from 'react-native-vector-icons/Entypo';
 import { ScreenWrapper } from '../../components/screen-wrapper/screen-wrapper';
 import { Button } from '../../components/button/button';
 
+import { authApi } from '../../../api/auth.api';
+
 import { colors } from '../../../styles';
 
 export const Login = () => {
@@ -23,7 +25,9 @@ export const Login = () => {
   const toggleShowPassword = () => setSecurePassword(!securePassword);
 
   const loginUser = () => {
-    console.log('login pressed');
+    const res = authApi.userLogin({ username, password });
+
+    console.log('login pressed', res);
   };
 
   return (

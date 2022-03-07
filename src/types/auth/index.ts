@@ -5,11 +5,6 @@ export interface AuthLoginPayload {
   password: string;
 }
 
-export interface AuthCredentials {
-  username: string;
-  password: string;
-}
-
 export interface AuthLoginResponse {
   status: string;
   token: string;
