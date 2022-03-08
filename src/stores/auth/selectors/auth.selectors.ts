@@ -20,3 +20,8 @@ export const selectAuthError = createSelector(
   [selectDomain],
   (state) => state.error,
 );
+
+export const selectAuthCredentials = createSelector(
+  [selectDomain],
+  (state) => state.credentials,
+);

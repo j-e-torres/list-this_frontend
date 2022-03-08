@@ -6,7 +6,7 @@ export interface AuthLoginPayload {
 }
 
 export interface AuthLoginResponse {
-  status: string;
+  status: number;
   token: string;
   data: User;
 }

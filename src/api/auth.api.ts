@@ -1,10 +1,8 @@
-import axios, { AxiosResponse } from 'axios';
-
-import util from 'util';
+import axios, { AxiosResponse, AxiosError } from 'axios';
 
 import { getBackendUrl } from '../utils/environment/environment';
 
-import { AuthTypes } from '../types';
+import { AuthTypes, ErrorTypes } from '../types';
 
 class AuthApi {
   private backendApi: string;
@@ -22,22 +20,6 @@ class AuthApi {
     );
     return res.data;
   };
-  // userLogin = async (creditials) => {
-  //   try {
-  //     const res = await axios.post(`${this.backendApi}/auth/login`, creditials);
-  //     return res.data;
-  //   } catch (error: any) {
-  //     console.log('------ERROR', error.response.data);
-  //     console.log('------ERROR2', error.response.status);
-  //     // console.log(
-  //     //   '------ERROR',
-  //     //   util.inspect(error, {
-  //     //     depth: 3,
-  //     //   }),
-  //     // );
-  //     // return `-----ERROR, ${error}`;
-  //   }
-  // };
 }
 
 export const authApi = new AuthApi();

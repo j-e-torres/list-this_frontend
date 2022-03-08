@@ -1,16 +1,18 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { AuthTypes, UserTypes } from '../../../types';
+import { AuthTypes, UserTypes, ErrorTypes } from '../../../types';
 
 export interface AuthState {
   loading: boolean;
   user: UserTypes.User | null;
   error: any;
+  credentials: AuthTypes.AuthLoginPayload | null;
 }
 
 export const initialState: AuthState = {
   loading: false,
   error: null,
   user: null,
+  credentials: null,
 };
 
 const authSlice = createSlice({
@@ -21,13 +23,14 @@ const authSlice = createSlice({
       state.loading = true;
       state.error = null;
       state.user = null;
+      state.credentials = action.payload;
     },
     loginSuccess(state, action: PayloadAction<UserTypes.User>) {
       state.loading = false;
       state.user = action.payload;
       state.error = null;
     },
-    loginFailure(state, action: PayloadAction<any>) {
+    loginFailure(state, action: PayloadAction<ErrorTypes.AllErrors>) {
       state.loading = false;
       state.user = null;
       state.error = action.payload;
