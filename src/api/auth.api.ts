@@ -1,10 +1,10 @@
-import axios, { AxiosResponse, AxiosError } from 'axios';
+import axios from 'axios';
 
 import { getBackendUrl } from '../utils/environment/environment';
 
-import { AuthTypes, ErrorTypes } from '../types';
+import { AuthTypes } from '../types';
 
-class AuthApi {
+export class AuthApi {
   private backendApi: string;
 
   constructor() {

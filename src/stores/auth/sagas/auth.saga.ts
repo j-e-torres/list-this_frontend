@@ -1,11 +1,12 @@
-import { takeEvery, put, call, select } from 'redux-saga/effects';
-import axios, { AxiosResponse, AxiosError } from 'axios';
+import { takeEvery, put, call, select, take } from 'redux-saga/effects';
+import axios, { AxiosError } from 'axios';
 
 import { actions } from '../slice/auth.slice';
 import { authApi } from '../../../api/auth.api';
 import { selectAuthCredentials } from '../selectors/auth.selectors';
 import { AuthTypes, ErrorTypes } from '../../../types';
-import { act } from 'react-test-renderer';
+
+import { storeToken } from '../../../utils/async-storage';
 
 export function* userLogin() {
   const credentials: AuthTypes.AuthLoginPayload = yield select(
@@ -18,6 +19,8 @@ export function* userLogin() {
       credentials,
     );
 
+    storeToken(authLoginResponse.token);
+
     yield put(actions.loginSuccess(authLoginResponse.data));
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -28,4 +31,8 @@ export function* userLogin() {
       yield put(actions.loginFailure(_error));
     }
   }
+}
+
+export function* userLoginSaga() {
+  yield takeEvery(actions.login.type, userLogin);
 }
