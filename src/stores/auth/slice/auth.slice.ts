@@ -4,7 +4,7 @@ import { AuthTypes, UserTypes, ErrorTypes } from '../../../types';
 export interface AuthState {
   loading: boolean;
   user: UserTypes.User | null;
-  error: any;
+  error: ErrorTypes.AllErrors | null;
   credentials: AuthTypes.AuthLoginPayload | null;
 }
 

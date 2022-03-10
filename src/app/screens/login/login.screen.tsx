@@ -27,27 +27,22 @@ import { colors } from '../../../styles';
 export const Login = () => {
   useInjectReducer({ key: sliceKey, reducer: reducer });
   useInjectSaga({ key: sliceKey, saga: userLoginSaga });
+  const { login, authError } = AuthFacadeService();
 
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [error, setError] = useState<string>('');
+  const [error, setError] = useState<any>('');
   const [securePassword, setSecurePassword] = useState<boolean>(true);
 
-  const { login } = AuthFacadeService();
+  useEffect(() => {
+    setError(authError);
+  }, [authError]);
 
   const toggleShowPassword = () => setSecurePassword(!securePassword);
 
-  // useEffect(() => {
-  //   const userLogin = () => {
-  //     login({ username, password });
-  //   };
-
-  //   userLogin();
-  // });
-
   const loginUser = () => {
     login({ username, password });
-    // console.log('login pressed', res);
+
     const wee = setInterval(() => {
       console.log('GOKU', getStoredToken());
       clearInterval(wee);
@@ -59,6 +54,9 @@ export const Login = () => {
       <KeyboardAvoidingView behavior="padding">
         <View>
           <Text style={styles.title}>Welcome Back</Text>
+        </View>
+        <View>
+          <Text style={styles.title}>{error && error.message}</Text>
         </View>
 
         <View>
