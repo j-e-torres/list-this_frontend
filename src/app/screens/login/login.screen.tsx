@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import {
   View,
   TextInput,
@@ -8,26 +8,50 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
+import { getStoredToken } from '../../../utils/async-storage';
+
+import {
+  useInjectReducer,
+  useInjectSaga,
+} from '../../../utils/redux-injectors.ts';
 
 import { ScreenWrapper } from '../../components/screen-wrapper/screen-wrapper';
 import { Button } from '../../components/button/button';
 
-import { authApi } from '../../../api/auth.api';
+import { sliceKey, reducer } from '../../../stores/auth/slice/auth.slice';
+import { userLoginSaga } from '../../../stores/auth/sagas/auth.saga';
+import { AuthFacadeService } from '../../../stores/auth/facades/auth.facade';
 
 import { colors } from '../../../styles';
 
 export const Login = () => {
+  useInjectReducer({ key: sliceKey, reducer: reducer });
+  useInjectSaga({ key: sliceKey, saga: userLoginSaga });
+
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [securePassword, setSecurePassword] = useState<boolean>(true);
 
+  const { login } = AuthFacadeService();
+
   const toggleShowPassword = () => setSecurePassword(!securePassword);
 
-  const loginUser = () => {
-    const res = authApi.userLogin({ username, password });
+  // useEffect(() => {
+  //   const userLogin = () => {
+  //     login({ username, password });
+  //   };
 
-    console.log('login pressed', res);
+  //   userLogin();
+  // });
+
+  const loginUser = () => {
+    login({ username, password });
+    // console.log('login pressed', res);
+    const wee = setInterval(() => {
+      console.log('GOKU', getStoredToken());
+      clearInterval(wee);
+    }, 5000);
   };
 
   return (
