@@ -24,7 +24,7 @@ import { AuthFacadeService } from '../../../stores/auth/facades/auth.facade';
 
 import { colors } from '../../../styles';
 
-export const Login = () => {
+export const Login: React.FC = () => {
   useInjectReducer({ key: sliceKey, reducer: reducer });
   useInjectSaga({ key: sliceKey, saga: userLoginSaga });
   const { login, authError } = AuthFacadeService();
@@ -55,9 +55,12 @@ export const Login = () => {
         <View>
           <Text style={styles.title}>Welcome Back</Text>
         </View>
-        <View>
-          <Text style={styles.title}>{error && error.message}</Text>
-        </View>
+
+        {error ? (
+          <View>
+            <Text style={styles.error}>{error.message}</Text>
+          </View>
+        ) : null}
 
         <View>
           <TextInput
@@ -112,5 +115,13 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: colors.lightOrange,
     color: colors.lightBlack,
+  },
+  error: {
+    fontSize: 14,
+    color: colors.white,
+    backgroundColor: colors.lightOrange,
+    borderRadius: 8,
+    padding: 4,
+    textAlign: 'center',
   },
 });
