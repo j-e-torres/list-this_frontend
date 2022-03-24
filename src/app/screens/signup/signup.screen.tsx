@@ -5,6 +5,7 @@ import {
   Text,
   StyleSheet,
   KeyboardAvoidingView,
+  ScrollView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 import { getStoredToken } from '../../../utils/async-storage';
@@ -24,15 +25,16 @@ import { AuthFacadeService } from '../../../stores/auth/facades/auth.facade';
 import { colors } from '../../../styles';
 import { ErrorTypes } from '../../../types';
 
-export const Login: React.FC = () => {
+export const Signup: React.FC = () => {
   useInjectReducer({ key: sliceKey, reducer: reducer });
   useInjectSaga({ key: sliceKey, saga: userLoginSaga });
-  const { login, authError } = AuthFacadeService();
+  const { authError } = AuthFacadeService();
 
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<ErrorTypes.AllErrors>(null);
   const [securePassword, setSecurePassword] = useState<boolean>(true);
+  const [displayName, setDisplayName] = useState<string>('');
 
   useEffect(() => {
     setError(authError);
@@ -40,20 +42,13 @@ export const Login: React.FC = () => {
 
   const toggleShowPassword = () => setSecurePassword(!securePassword);
 
-  const loginUser = () => {
-    login({ username, password });
-
-    const wee = setInterval(() => {
-      console.log('GOKU', getStoredToken());
-      clearInterval(wee);
-    }, 5000);
-  };
+  const registerUser = () => {};
 
   return (
     <ScreenWrapper>
       <KeyboardAvoidingView behavior="padding">
         <View>
-          <Text style={styles.title}>Welcome Back</Text>
+          <Text style={styles.title}>Create your account</Text>
         </View>
 
         {error ? (
@@ -66,6 +61,13 @@ export const Login: React.FC = () => {
           <TextInput
             onChangeText={setUsername}
             placeholder="Username"
+            value={username}
+            style={styles.input}
+          />
+
+          <TextInput
+            onChangeText={setDisplayName}
+            placeholder="Display Name"
             value={username}
             style={styles.input}
           />
@@ -92,7 +94,7 @@ export const Login: React.FC = () => {
             />
           </View>
 
-          <Button onPress={loginUser}>Login</Button>
+          <Button onPress={registerUser}>Register</Button>
         </View>
       </KeyboardAvoidingView>
     </ScreenWrapper>

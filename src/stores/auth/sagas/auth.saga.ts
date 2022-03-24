@@ -14,7 +14,7 @@ export function* userLogin() {
   );
 
   try {
-    const authLoginResponse: AuthTypes.AuthLoginResponse = yield call(
+    const authLoginResponse: AuthTypes.AuthResponse = yield call(
       authApi.userLogin,
       credentials,
     );

@@ -14,7 +14,11 @@ export const AuthFacadeService = () => {
     dispatch(actions.login(credentials));
   };
 
-  return { authUser, login, authError };
+  const signup = (credentials: AuthTypes.AuthSignupPayload) => {
+    dispatch(actions.signup(credentials));
+  };
+
+  return { authUser, login, authError, signup };
 };
 
 // export class AuthFacadeService {

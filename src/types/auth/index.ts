@@ -5,8 +5,14 @@ export interface AuthLoginPayload {
   password: string;
 }
 
-export interface AuthLoginResponse {
+export interface AuthResponse {
   status: number;
   token: string;
   data: User;
+}
+
+export interface AuthSignupPayload {
+  username: string;
+  password: string;
+  displayName: string;
 }

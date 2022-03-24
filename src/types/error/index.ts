@@ -5,7 +5,7 @@ export interface ApiErrorResponse {
   stack?: string;
 }
 
-export type AllErrors = ApiErrorResponse | Error | undefined;
+export type AllErrors = ApiErrorResponse | Error | undefined | null;
 
 export enum GeneralErrors {
   GENERAL_ERROR = 'Something went wrong',

@@ -13,11 +13,22 @@ export class AuthApi {
 
   userLogin = async (
     creditials: AuthTypes.AuthLoginPayload,
-  ): Promise<AuthTypes.AuthLoginResponse> => {
-    const res = await axios.post<AuthTypes.AuthLoginResponse>(
+  ): Promise<AuthTypes.AuthResponse> => {
+    const res = await axios.post<AuthTypes.AuthResponse>(
       `${this.backendApi}/auth/login`,
       creditials,
     );
+    return res.data;
+  };
+
+  registerUser = async (
+    credentials: AuthTypes.AuthSignupPayload,
+  ): Promise<AuthTypes.AuthResponse> => {
+    const res = await axios.post<AuthTypes.AuthResponse>(
+      `${this.backendApi}/auth/register`,
+      credentials,
+    );
+
     return res.data;
   };
 }

@@ -5,7 +5,7 @@ export interface AuthState {
   loading: boolean;
   user: UserTypes.User | null;
   error: ErrorTypes.AllErrors | null;
-  credentials: AuthTypes.AuthLoginPayload | null;
+  credentials: AuthTypes.AuthLoginPayload | AuthTypes.AuthSignupPayload | null;
 }
 
 export const initialState: AuthState = {
@@ -31,6 +31,23 @@ const authSlice = createSlice({
       state.error = null;
     },
     loginFailure(state, action: PayloadAction<ErrorTypes.AllErrors>) {
+      state.loading = false;
+      state.user = null;
+      state.error = action.payload;
+    },
+
+    register(state, action: PayloadAction<AuthTypes.AuthSignupPayload>) {
+      state.loading = true;
+      state.user = null;
+      state.credentials = action.payload;
+      state.error = null;
+    },
+    registerSuccess(state, action: PayloadAction<UserTypes.User>) {
+      state.loading = false;
+      state.user = action.payload;
+      state.error = null;
+    },
+    registerFailure(state, action: PayloadAction<ErrorTypes.AllErrors>) {
       state.loading = false;
       state.user = null;
       state.error = action.payload;
