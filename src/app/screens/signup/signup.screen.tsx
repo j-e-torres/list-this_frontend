@@ -19,7 +19,7 @@ import { ScreenWrapper } from '../../components/screen-wrapper/screen-wrapper';
 import { Button } from '../../components/button/button';
 
 import { sliceKey, reducer } from '../../../stores/auth/slice/auth.slice';
-import { userLoginSaga } from '../../../stores/auth/sagas/auth.saga';
+import { registerUserSaga } from '../../../stores/auth/sagas/auth.saga';
 import { AuthFacadeService } from '../../../stores/auth/facades/auth.facade';
 
 import { colors } from '../../../styles';
@@ -27,8 +27,8 @@ import { ErrorTypes } from '../../../types';
 
 export const Signup: React.FC = () => {
   useInjectReducer({ key: sliceKey, reducer: reducer });
-  useInjectSaga({ key: sliceKey, saga: userLoginSaga });
-  const { authError } = AuthFacadeService();
+  useInjectSaga({ key: sliceKey, saga: registerUserSaga });
+  const { signup, authError } = AuthFacadeService();
 
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -42,7 +42,14 @@ export const Signup: React.FC = () => {
 
   const toggleShowPassword = () => setSecurePassword(!securePassword);
 
-  const registerUser = () => {};
+  const registerUser = () => {
+    signup({ username, displayName, password });
+
+    const wee = setInterval(() => {
+      console.log('GOKU', getStoredToken());
+      clearInterval(wee);
+    }, 5000);
+  };
 
   return (
     <ScreenWrapper>
@@ -68,7 +75,7 @@ export const Signup: React.FC = () => {
           <TextInput
             onChangeText={setDisplayName}
             placeholder="Display Name"
-            value={username}
+            value={displayName}
             style={styles.input}
           />
 
