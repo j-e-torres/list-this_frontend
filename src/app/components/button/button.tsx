@@ -6,16 +6,20 @@ import {
   StyleSheet,
   TouchableOpacity,
   KeyboardAvoidingView,
+  TouchableOpacityProps,
 } from 'react-native';
 
 import * as colors from '../../../styles/colors';
 
-export const Button = (props) => {
+export const Button = (
+  props: JSX.IntrinsicAttributes &
+    JSX.IntrinsicClassAttributes<TouchableOpacity> &
+    Readonly<TouchableOpacityProps> &
+    Readonly<{ children?: React.ReactNode }>,
+) => {
   return (
-    <TouchableOpacity {...props} style={styles.button}>
-      <Text style={[styles.buttonText]}>
-        {props.children}
-      </Text>
+    <TouchableOpacity {...props} style={[styles.button, props.style]}>
+      <Text style={[styles.buttonText]}>{props.children}</Text>
     </TouchableOpacity>
   );
 };
