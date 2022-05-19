@@ -8,13 +8,18 @@ import {
   ScrollView,
 } from 'react-native';
 
+import { useNavigation } from '@react-navigation/core';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
 import { ScreenWrapper } from '../../components/screen-wrapper/screen-wrapper';
 import { Button } from '../../components/button/button';
 
 import { colors } from '../../../styles';
+import { RootStackParamList } from '../../../types/navigation';
 
-export const Root = ({ navigation }) => {
-  console.log('JESUS', navigation);
+export const Root = () => {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   return (
     <ScreenWrapper>
       <View>
@@ -24,9 +29,17 @@ export const Root = ({ navigation }) => {
       </View>
 
       <View style={styles.buttonView}>
-        <Button style={styles.buttonWidth}>Login</Button>
+        <Button
+          onPress={() => navigation.navigate('Login')}
+          style={styles.buttonWidth}>
+          Login
+        </Button>
 
-        <Button style={styles.buttonWidth}>Sign up</Button>
+        <Button
+          onPress={() => navigation.navigate('Signup')}
+          style={styles.buttonWidth}>
+          Sign up
+        </Button>
       </View>
     </ScreenWrapper>
   );

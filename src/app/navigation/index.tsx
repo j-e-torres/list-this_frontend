@@ -6,7 +6,9 @@ import { Login } from '../screens/login/login.screen';
 import { Signup } from '../screens/signup/signup.screen';
 import { Root } from '../screens/root/root.screen';
 
-const Stack = createNativeStackNavigator();
+import { RootStackParamList } from '../../types/navigation';
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default class Navigation extends Component {
   // if (state.isLoading) {
@@ -17,10 +19,10 @@ export default class Navigation extends Component {
   render() {
     return (
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator initialRouteName="Root">
           <Stack.Group>
-            {/* <Stack.Screen name="Root" component={Root} /> */}
-            {/* <Stack.Screen name="Login" component={Login} /> */}
+            <Stack.Screen name="Root" component={Root} />
+            <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="Signup" component={Signup} />
           </Stack.Group>
 
