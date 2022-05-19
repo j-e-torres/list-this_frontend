@@ -18,7 +18,11 @@ export default class Navigation extends Component {
     return (
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Root" component={Root} />
+          <Stack.Group>
+            {/* <Stack.Screen name="Root" component={Root} /> */}
+            {/* <Stack.Screen name="Login" component={Login} /> */}
+            <Stack.Screen name="Signup" component={Signup} />
+          </Stack.Group>
 
           {/* {isLoggedIn ? (
             // Screens for logged in users

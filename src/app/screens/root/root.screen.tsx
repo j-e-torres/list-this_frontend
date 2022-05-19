@@ -13,7 +13,8 @@ import { Button } from '../../components/button/button';
 
 import { colors } from '../../../styles';
 
-export const Root: React.FC = () => {
+export const Root = ({ navigation }) => {
+  console.log('JESUS', navigation);
   return (
     <ScreenWrapper>
       <View>
