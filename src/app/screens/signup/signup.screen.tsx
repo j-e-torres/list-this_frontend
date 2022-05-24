@@ -24,6 +24,7 @@ import { AuthFacadeService } from '../../../stores/auth/facades/auth.facade';
 
 import { colors } from '../../../styles';
 import { ErrorTypes } from '../../../types';
+import { Variant } from '../../../types/variant';
 
 export const Signup: React.FC = () => {
   useInjectReducer({ key: sliceKey, reducer: reducer });
@@ -101,7 +102,9 @@ export const Signup: React.FC = () => {
             />
           </View>
 
-          <Button onPress={registerUser}>Register</Button>
+          <Button variant={Variant.secondary} onPress={registerUser}>
+            Register
+          </Button>
         </View>
       </KeyboardAvoidingView>
     </ScreenWrapper>

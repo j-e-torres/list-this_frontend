@@ -23,6 +23,7 @@ import { AuthFacadeService } from '../../../stores/auth/facades/auth.facade';
 
 import { colors } from '../../../styles';
 import { ErrorTypes } from '../../../types';
+import { Variant } from '../../../types/variant';
 
 export const Login: React.FC = () => {
   useInjectReducer({ key: sliceKey, reducer: reducer });
@@ -92,7 +93,9 @@ export const Login: React.FC = () => {
             />
           </View>
 
-          <Button onPress={loginUser}>Login</Button>
+          <Button variant={Variant.secondary} onPress={loginUser}>
+            Login
+          </Button>
         </View>
       </KeyboardAvoidingView>
     </ScreenWrapper>

@@ -10,30 +10,21 @@ import {
 } from 'react-native';
 
 import * as colors from '../../../styles/colors';
+import {
+  ButtonProps,
+  ButtonStyles,
+  ButtonStylesContext,
+} from '../../../types/button';
+import { getStyles } from './button.styles';
+import { createUseStyles } from '../../../utils/create-use-styles';
 
-export const Button = (
-  props: JSX.IntrinsicAttributes &
-    JSX.IntrinsicClassAttributes<TouchableOpacity> &
-    Readonly<TouchableOpacityProps> &
-    Readonly<{ children?: React.ReactNode }>,
-) => {
+const useStyles = createUseStyles<ButtonStylesContext, ButtonStyles>(getStyles);
+
+export const Button = (props: ButtonProps) => {
+  const getStyle = useStyles({ variant: props.variant });
   return (
-    <TouchableOpacity {...props} style={[styles.button, props.style]}>
-      <Text style={[styles.buttonText]}>{props.children}</Text>
+    <TouchableOpacity {...props} style={[getStyle?.buttonStyle, props.style]}>
+      <Text style={[getStyle?.buttonTextStyle]}>{props.children}</Text>
     </TouchableOpacity>
   );
 };
-
-const styles = StyleSheet.create({
-  button: {
-    alignItems: 'center',
-    padding: 10,
-    borderRadius: 50,
-    borderColor: colors.darkOrange,
-    borderWidth: 1,
-  },
-  buttonText: {
-    color: colors.lightOrange,
-    fontSize: 25,
-  },
-});

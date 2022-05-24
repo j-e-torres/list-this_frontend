@@ -6,9 +6,55 @@ import { Login } from '../screens/login/login.screen';
 import { Signup } from '../screens/signup/signup.screen';
 import { Root } from '../screens/root/root.screen';
 
-import { RootStackParamList } from '../../types/navigation';
+import { getStoredToken } from '../../utils/async-storage';
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+import {
+  RootStackParamList,
+  UnauthorizedStackParams,
+  AuthStackParams,
+} from '../../types/navigation';
+import { colors } from '../../styles';
+
+const RootStack = createNativeStackNavigator<RootStackParamList>();
+
+const UnauthStack = createNativeStackNavigator<UnauthorizedStackParams>();
+
+const UnauthScreenStack = () => {
+  return (
+    <UnauthStack.Navigator
+      initialRouteName="Root"
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: colors.darkOrange,
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+        headerTitleAlign: 'center',
+      }}>
+      <UnauthStack.Group>
+        <UnauthStack.Screen
+          options={{ headerShown: false }}
+          name="Root"
+          component={Root}
+        />
+        <UnauthStack.Screen name="Login" component={Login} />
+        <UnauthStack.Screen name="Signup" component={Signup} />
+      </UnauthStack.Group>
+    </UnauthStack.Navigator>
+  );
+};
+
+const AuthStack = createNativeStackNavigator<AuthStackParams>();
+
+// const AuthScreenStack = () => {
+//   <AuthStack.Navigator>
+//     <AuthStack.Group>
+//       <AuthStack.Screen name="Home" component={Home} />
+//     </AuthStack.Group>
+//   </AuthStack.Navigator>;
+// };
 
 export default class Navigation extends Component {
   // if (state.isLoading) {
@@ -17,14 +63,23 @@ export default class Navigation extends Component {
   // }
 
   render() {
+    console.log('LORD LORD', getStoredToken());
+
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Root">
-          <Stack.Group>
+        <RootStack.Navigator
+          initialRouteName="UnauthStack"
+          screenOptions={{ headerShown: false }}>
+          <RootStack.Screen
+            options={{ headerShown: false }}
+            name="UnauthStack"
+            component={UnauthScreenStack}
+          />
+          {/* <Stack.Group>
             <Stack.Screen name="Root" component={Root} />
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="Signup" component={Signup} />
-          </Stack.Group>
+          </Stack.Group> */}
 
           {/* {isLoggedIn ? (
             // Screens for logged in users
@@ -44,7 +99,7 @@ export default class Navigation extends Component {
             <Stack.Screen name="Help" component={Help} />
             <Stack.Screen name="Invite" component={Invite} />
           </Stack.Group> */}
-        </Stack.Navigator>
+        </RootStack.Navigator>
       </NavigationContainer>
     );
   }
