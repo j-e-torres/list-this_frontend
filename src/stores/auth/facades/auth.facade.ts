@@ -18,5 +18,9 @@ export const AuthFacadeService = () => {
     dispatch(actions.register(credentials));
   };
 
-  return { authUser, login, authError, signup };
+  const clearError = () => {
+    dispatch(actions.clearError(null));
+  };
+
+  return { authUser, login, authError, signup, clearError };
 };
