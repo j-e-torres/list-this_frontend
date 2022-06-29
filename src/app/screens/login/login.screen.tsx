@@ -28,6 +28,7 @@ import { Variant } from '../../../types/variant';
 export const Login: React.FC = () => {
   useInjectReducer({ key: sliceKey, reducer: reducer });
   useInjectSaga({ key: sliceKey, saga: userLoginSaga });
+
   const { login, authError, clearError } = AuthFacadeService();
 
   const [username, setUsername] = useState<string>('');
@@ -35,19 +36,15 @@ export const Login: React.FC = () => {
   const [error, setError] = useState<ErrorTypes.AllErrors>(null);
   const [securePassword, setSecurePassword] = useState<boolean>(true);
 
-  // useEffect(() => {
-  //   return () => {
-  //     clearError();
-  //   };
-  // });
-
   useEffect(() => {
     setError(authError);
 
-    // return () => {
-    //   clearError();
-    // };
-  }, [authError, error]);
+    return () => {
+      if (error) {
+        clearError();
+      }
+    };
+  }, [authError, error, clearError]);
 
   const toggleShowPassword = () => setSecurePassword(!securePassword);
 

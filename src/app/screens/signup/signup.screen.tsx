@@ -29,7 +29,8 @@ import { Variant } from '../../../types/variant';
 export const Signup: React.FC = () => {
   useInjectReducer({ key: sliceKey, reducer: reducer });
   useInjectSaga({ key: sliceKey, saga: registerUserSaga });
-  const { signup, authError } = AuthFacadeService();
+
+  const { signup, authError, clearError } = AuthFacadeService();
 
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -39,17 +40,18 @@ export const Signup: React.FC = () => {
 
   useEffect(() => {
     setError(authError);
-  }, [authError]);
+
+    return () => {
+      if (error) {
+        clearError();
+      }
+    };
+  }, [authError, clearError, error]);
 
   const toggleShowPassword = () => setSecurePassword(!securePassword);
 
   const registerUser = () => {
     signup({ username, displayName, password });
-
-    const wee = setInterval(() => {
-      console.log('GOKU', getStoredToken());
-      clearInterval(wee);
-    }, 5000);
   };
 
   return (
