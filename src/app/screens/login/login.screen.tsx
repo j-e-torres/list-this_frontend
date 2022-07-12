@@ -24,12 +24,18 @@ import { AuthFacadeService } from '../../../stores/auth/facades/auth.facade';
 import { colors } from '../../../styles';
 import { ErrorTypes } from '../../../types';
 import { Variant } from '../../../types/variant';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { AuthStackParams } from '../../../types/navigation';
 
 export const Login: React.FC = () => {
   useInjectReducer({ key: sliceKey, reducer: reducer });
   useInjectSaga({ key: sliceKey, saga: userLoginSaga });
 
-  const { login, authError, clearError } = AuthFacadeService();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<AuthStackParams>>();
+
+  const { login, authError, clearError, authUser } = AuthFacadeService();
 
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -50,12 +56,11 @@ export const Login: React.FC = () => {
 
   const loginUser = () => {
     login({ username, password });
-
-    const wee = setInterval(() => {
-      console.log('GOKU', getStoredToken());
-      clearInterval(wee);
-    }, 5000);
   };
+
+  if (authUser) {
+    navigation.navigate('Home');
+  }
 
   return (
     <ScreenWrapper>
