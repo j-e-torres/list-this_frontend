@@ -25,11 +25,13 @@ const authSlice = createSlice({
       state.user = null;
       state.credentials = action.payload;
     },
+
     loginSuccess(state, action: PayloadAction<UserTypes.User>) {
       state.loading = false;
       state.user = action.payload;
       state.error = null;
     },
+
     loginFailure(state, action: PayloadAction<ErrorTypes.AllErrors>) {
       state.loading = false;
       state.user = null;
@@ -42,16 +44,19 @@ const authSlice = createSlice({
       state.credentials = action.payload;
       state.error = null;
     },
+
     registerSuccess(state, action: PayloadAction<UserTypes.User>) {
       state.loading = false;
       state.user = action.payload;
       state.error = null;
     },
+
     registerFailure(state, action: PayloadAction<ErrorTypes.AllErrors>) {
       state.loading = false;
       state.user = null;
       state.error = action.payload;
     },
+
     clearError(state, action: PayloadAction<null>) {
       state.error = null;
     },

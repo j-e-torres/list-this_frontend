@@ -5,7 +5,6 @@ import { actions } from '../slice/auth.slice';
 import { authApi } from '../../../api/auth.api';
 import { selectAuthCredentials } from '../selectors/auth.selectors';
 import { AuthTypes, ErrorTypes } from '../../../types';
-
 import { storeToken } from '../../../utils/async-storage';
 
 export function* userLogin() {
@@ -43,7 +42,7 @@ export function* registerUser() {
       authApi.registerUser,
       credentials,
     );
-    console.log('WOOOOOOOOW', authRegisterResponse);
+
     storeToken(authRegisterResponse.token.accessToken);
 
     yield put(actions.registerSuccess(authRegisterResponse.data));

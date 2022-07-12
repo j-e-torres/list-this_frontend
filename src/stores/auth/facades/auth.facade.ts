@@ -7,6 +7,7 @@ import { AuthTypes, ErrorTypes, UserTypes } from '../../../types';
 
 export const AuthFacadeService = () => {
   const dispatch = useDispatch();
+
   const authUser: UserTypes.User | null = useSelector(selectAuthUser);
   const authError: ErrorTypes.AllErrors | null = useSelector(selectAuthError);
 

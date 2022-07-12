@@ -7,6 +7,11 @@ import {
   KeyboardAvoidingView,
   ScrollView,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import {
+  NativeStackScreenProps,
+  NativeStackNavigationProp,
+} from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/Entypo';
 import { getStoredToken } from '../../../utils/async-storage';
 
@@ -25,12 +30,16 @@ import { AuthFacadeService } from '../../../stores/auth/facades/auth.facade';
 import { colors } from '../../../styles';
 import { ErrorTypes } from '../../../types';
 import { Variant } from '../../../types/variant';
+import { AuthStackParams } from '../../../types/navigation';
 
 export const Signup: React.FC = () => {
   useInjectReducer({ key: sliceKey, reducer: reducer });
   useInjectSaga({ key: sliceKey, saga: registerUserSaga });
 
-  const { signup, authError, clearError } = AuthFacadeService();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<AuthStackParams>>();
+
+  const { signup, authError, clearError, authUser } = AuthFacadeService();
 
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -53,6 +62,10 @@ export const Signup: React.FC = () => {
   const registerUser = () => {
     signup({ username, displayName, password });
   };
+
+  if (authUser) {
+    navigation.navigate('Home');
+  }
 
   return (
     <ScreenWrapper>

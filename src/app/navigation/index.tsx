@@ -46,6 +46,8 @@ const UnauthScreenStack = () => {
   );
 };
 
+// const
+
 const AuthStack = createNativeStackNavigator<AuthStackParams>();
 
 // const AuthScreenStack = () => {
@@ -75,6 +77,7 @@ export default class Navigation extends Component {
             name="UnauthStack"
             component={UnauthScreenStack}
           />
+
           {/* <Stack.Group>
             <Stack.Screen name="Root" component={Root} />
             <Stack.Screen name="Login" component={Login} />
