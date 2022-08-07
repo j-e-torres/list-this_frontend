@@ -29,7 +29,7 @@ import {
   NativeStackNavigationProp,
   NativeStackScreenProps,
 } from '@react-navigation/native-stack';
-import { AuthStackParams, RootStackParamList } from '../../../types/navigation';
+import { RootStackParamList } from '../../../types/navigation';
 
 export const Login: React.FC = () => {
   useInjectReducer({ key: sliceKey, reducer: reducer });

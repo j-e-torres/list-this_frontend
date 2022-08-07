@@ -30,14 +30,14 @@ import { AuthFacadeService } from '../../../stores/auth/facades/auth.facade';
 import { colors } from '../../../styles';
 import { ErrorTypes } from '../../../types';
 import { Variant } from '../../../types/variant';
-import { AuthStackParams } from '../../../types/navigation';
+import { RootStackParamList } from '../../../types/navigation';
 
 export const Signup: React.FC = () => {
   useInjectReducer({ key: sliceKey, reducer: reducer });
   useInjectSaga({ key: sliceKey, saga: registerUserSaga });
 
   const navigation =
-    useNavigation<NativeStackNavigationProp<AuthStackParams>>();
+    useNavigation<NativeStackNavigationProp<RootStackParamList, 'AuthStack'>>();
 
   const { signup, authError, clearError, authUser } = AuthFacadeService();
 
@@ -50,22 +50,24 @@ export const Signup: React.FC = () => {
   useEffect(() => {
     setError(authError);
 
+    if (authUser) {
+      navigation.navigate('AuthStack', {
+        screen: 'Home',
+      });
+    }
+
     return () => {
       if (error) {
         clearError();
       }
     };
-  }, [authError, clearError, error]);
+  }, [authError, clearError, error, authUser, navigation]);
 
   const toggleShowPassword = () => setSecurePassword(!securePassword);
 
   const registerUser = () => {
     signup({ username, displayName, password });
   };
-
-  if (authUser) {
-    navigation.navigate('Home');
-  }
 
   return (
     <ScreenWrapper>
