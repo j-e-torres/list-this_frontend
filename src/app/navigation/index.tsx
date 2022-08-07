@@ -65,8 +65,6 @@ export default class Navigation extends Component {
   // }
 
   render() {
-    console.log('LORD LORD', getStoredToken());
-
     return (
       <NavigationContainer>
         <RootStack.Navigator
