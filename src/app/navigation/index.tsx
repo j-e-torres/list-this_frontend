@@ -53,7 +53,7 @@ const AuthStack = createNativeStackNavigator<AuthStackParams>();
 
 const AuthScreenStack = () => {
   return (
-    <AuthStack.Navigator>
+    <AuthStack.Navigator initialRouteName="Home">
       <AuthStack.Group>
         <AuthStack.Screen name="Home" component={Home} />
       </AuthStack.Group>

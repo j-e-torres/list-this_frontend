@@ -25,15 +25,18 @@ import { colors } from '../../../styles';
 import { ErrorTypes } from '../../../types';
 import { Variant } from '../../../types/variant';
 import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { AuthStackParams } from '../../../types/navigation';
+import {
+  NativeStackNavigationProp,
+  NativeStackScreenProps,
+} from '@react-navigation/native-stack';
+import { AuthStackParams, RootStackParamList } from '../../../types/navigation';
 
 export const Login: React.FC = () => {
   useInjectReducer({ key: sliceKey, reducer: reducer });
   useInjectSaga({ key: sliceKey, saga: userLoginSaga });
 
   const navigation =
-    useNavigation<NativeStackNavigationProp<AuthStackParams>>();
+    useNavigation<NativeStackNavigationProp<RootStackParamList, 'AuthStack'>>();
 
   const { login, authError, clearError, authUser } = AuthFacadeService();
 
@@ -45,22 +48,24 @@ export const Login: React.FC = () => {
   useEffect(() => {
     setError(authError);
 
+    if (authUser) {
+      navigation.navigate('AuthStack', {
+        screen: 'Home',
+      });
+    }
+
     return () => {
       if (error) {
         clearError();
       }
     };
-  }, [authError, error, clearError]);
+  }, [authError, error, clearError, authUser, navigation]);
 
   const toggleShowPassword = () => setSecurePassword(!securePassword);
 
   const loginUser = () => {
     login({ username, password });
   };
-
-  if (authUser) {
-    navigation.navigate('Home');
-  }
 
   return (
     <ScreenWrapper>
