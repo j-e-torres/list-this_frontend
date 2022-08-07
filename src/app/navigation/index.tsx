@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Login } from '../screens/login/login.screen';
 import { Signup } from '../screens/signup/signup.screen';
 import { Root } from '../screens/root/root.screen';
+import { Home } from '../screens/home/home.screen';
 
 import { getStoredToken } from '../../utils/async-storage';
 
@@ -50,13 +51,15 @@ const UnauthScreenStack = () => {
 
 const AuthStack = createNativeStackNavigator<AuthStackParams>();
 
-// const AuthScreenStack = () => {
-//   <AuthStack.Navigator>
-//     <AuthStack.Group>
-//       <AuthStack.Screen name="Home" component={Home} />
-//     </AuthStack.Group>
-//   </AuthStack.Navigator>;
-// };
+const AuthScreenStack = () => {
+  return (
+    <AuthStack.Navigator>
+      <AuthStack.Group>
+        <AuthStack.Screen name="Home" component={Home} />
+      </AuthStack.Group>
+    </AuthStack.Navigator>
+  );
+};
 
 export default class Navigation extends Component {
   // if (state.isLoading) {
@@ -74,6 +77,11 @@ export default class Navigation extends Component {
             options={{ headerShown: false }}
             name="UnauthStack"
             component={UnauthScreenStack}
+          />
+          <RootStack.Screen
+            options={{ headerShown: false }}
+            name="AuthStack"
+            component={AuthScreenStack}
           />
 
           {/* <Stack.Group>

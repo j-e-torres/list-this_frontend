@@ -9,7 +9,7 @@ import { NavigatorScreenParams } from '@react-navigation/native';
 
 export type RootStackParamList = {
   UnauthStack: NavigatorScreenParams<UnauthorizedStackParams>;
-  AuthStack: undefined;
+  AuthStack: NavigatorScreenParams<AuthStackParams>;
 };
 
 export type UnauthorizedStackParams = {
