@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectAuthUser } from '../../../stores/auth/selectors/auth.selectors';
 
 import {
   useInjectReducer,
@@ -24,12 +26,14 @@ export const Home: React.FC = () => {
 
   const [user, setUser] = useState<UserTypes.User | null>(null);
 
-  const { authUser } = AuthFacadeService();
+  // const { authUser } = AuthFacadeService();
+  const authUser = useSelector(selectAuthUser);
 
   useEffect(() => {
     // const { authUser } = AuthFacadeService();
-
-    setUser(authUser);
+    if (authUser) {
+      setUser(authUser);
+    }
   }, [authUser]);
 
   // const { authUser } = AuthFacadeService();
