@@ -17,10 +17,10 @@ export function* userLogin() {
       authApi.userLogin,
       credentials,
     );
-
+    console.log('JJJJJJJ', authLoginResponse);
     storeToken(authLoginResponse.token.accessToken);
 
-    yield put(actions.loginSuccess(authLoginResponse.data));
+    yield put(actions.loginSuccess(authLoginResponse.data.user));
   } catch (error) {
     if (axios.isAxiosError(error)) {
       const _error = error as AxiosError<ErrorTypes.ApiErrorResponse>;
@@ -45,7 +45,7 @@ export function* registerUser() {
 
     storeToken(authRegisterResponse.token.accessToken);
 
-    yield put(actions.registerSuccess(authRegisterResponse.data));
+    yield put(actions.registerSuccess(authRegisterResponse.data.user));
   } catch (error) {
     if (axios.isAxiosError(error)) {
       const _error = error as AxiosError<ErrorTypes.ApiErrorResponse>;

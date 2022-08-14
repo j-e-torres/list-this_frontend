@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { selectAuthUser } from '../../../stores/auth/selectors/auth.selectors';
 
 import {
@@ -24,25 +24,12 @@ import { UserTypes } from '../../../types';
 export const Home: React.FC = () => {
   useInjectReducer({ key: sliceKey, reducer: reducer });
 
-  const [user, setUser] = useState<UserTypes.User | null>(null);
+  const { authUser } = AuthFacadeService();
 
-  // const { authUser } = AuthFacadeService();
-  const authUser = useSelector(selectAuthUser);
-
-  useEffect(() => {
-    // const { authUser } = AuthFacadeService();
-    if (authUser) {
-      setUser(authUser);
-    }
-  }, [authUser]);
-
-  // const { authUser } = AuthFacadeService();
-
-  console.log('GOOOKUUU', user);
   return (
     <ScreenWrapper>
       <View>
-        <Text style={styles.title}>Welcome back {user?.displayName}</Text>
+        <Text style={styles.title}>Welcome back {authUser?.displayName}</Text>
       </View>
 
       <View style={styles.buttonView}>

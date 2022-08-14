@@ -13,7 +13,7 @@ export interface AuthLoginPayload {
 export interface AuthResponse {
   status: number;
   token: AuthToken;
-  data: User;
+  data: { user: User };
 }
 
 export interface AuthSignupPayload {
