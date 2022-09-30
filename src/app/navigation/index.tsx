@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -61,36 +61,60 @@ const AuthScreenStack = () => {
   );
 };
 
-export default class Navigation extends Component {
+interface NavState {
+  loggedIn: boolean;
+  isLoading: boolean;
+}
+const Navigation: React.FC = () => {
+  const [NavState, setNavState] = useState<NavState>({
+    loggedIn: false,
+    isLoading: true,
+  });
+  /*
+  - while checking, state.isLoading
+  - if token,  stated.loggedIn = true
+  */
+
+  //  - get token in localStorage when component mounts
+  useEffect(() => {
+    async function fetchStoredToken() {
+      const token = await getStoredToken();
+
+      //  - check token against user
+      console.log('JFJJDJDJDJ', token);
+    }
+
+    fetchStoredToken();
+  });
+
   // if (state.isLoading) {
   //   // We haven't finished checking for the token yet
   //   return <SplashScreen />;
   // }
 
-  render() {
-    return (
-      <NavigationContainer>
-        <RootStack.Navigator
-          initialRouteName="UnauthStack"
-          screenOptions={{ headerShown: false }}>
-          <RootStack.Screen
-            options={{ headerShown: false }}
-            name="UnauthStack"
-            component={UnauthScreenStack}
-          />
-          <RootStack.Screen
-            options={{ headerShown: false }}
-            name="AuthStack"
-            component={AuthScreenStack}
-          />
+  return (
+    <NavigationContainer>
+      <RootStack.Navigator
+        initialRouteName="UnauthStack"
+        screenOptions={{ headerShown: false }}>
+        <RootStack.Screen
+          options={{ headerShown: false }}
+          name="UnauthStack"
+          component={UnauthScreenStack}
+        />
+        <RootStack.Screen
+          options={{ headerShown: false }}
+          name="AuthStack"
+          component={AuthScreenStack}
+        />
 
-          {/* <Stack.Group>
+        {/* <Stack.Group>
             <Stack.Screen name="Root" component={Root} />
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="Signup" component={Signup} />
           </Stack.Group> */}
 
-          {/* {isLoggedIn ? (
+        {/* {isLoggedIn ? (
             // Screens for logged in users
             <Stack.Group>
               <Stack.Screen name="Home" component={Home} />
@@ -108,11 +132,10 @@ export default class Navigation extends Component {
             <Stack.Screen name="Help" component={Help} />
             <Stack.Screen name="Invite" component={Invite} />
           </Stack.Group> */}
-        </RootStack.Navigator>
-      </NavigationContainer>
-    );
-  }
-}
+      </RootStack.Navigator>
+    </NavigationContainer>
+  );
+};
 
 // {/* <Stack.Navigator>
 // {isLoggedIn ? (
@@ -134,3 +157,4 @@ export default class Navigation extends Component {
 //   <Stack.Screen name="Invite" component={Invite} />
 // </Stack.Group>
 // </Stack.Navigator> */}
+export default Navigation;

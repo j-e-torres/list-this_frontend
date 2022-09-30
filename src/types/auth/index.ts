@@ -12,12 +12,13 @@ export interface AuthLoginPayload {
 
 export interface AuthResponse {
   status: number;
-  token: AuthToken;
   data: { user: User };
 }
 
-export interface AuthSignupPayload {
-  username: string;
-  password: string;
+export interface AuthResponseWithToken extends AuthResponse {
+  token: AuthToken;
+}
+
+export interface AuthSignupPayload extends AuthLoginPayload {
   displayName: string;
 }

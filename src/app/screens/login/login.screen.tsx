@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   TextInput,
@@ -7,7 +7,6 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
-import { getStoredToken } from '../../../utils/async-storage';
 
 import {
   useInjectReducer,
@@ -25,10 +24,7 @@ import { colors } from '../../../styles';
 import { ErrorTypes } from '../../../types';
 import { Variant } from '../../../types/variant';
 import { useNavigation } from '@react-navigation/native';
-import {
-  NativeStackNavigationProp,
-  NativeStackScreenProps,
-} from '@react-navigation/native-stack';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../../types/navigation';
 
 export const Login: React.FC = () => {

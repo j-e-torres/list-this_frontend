@@ -13,7 +13,7 @@ export function* userLogin() {
   );
 
   try {
-    const authLoginResponse: AuthTypes.AuthResponse = yield call(
+    const authLoginResponse: AuthTypes.AuthResponseWithToken = yield call(
       authApi.userLogin,
       credentials,
     );
@@ -38,7 +38,7 @@ export function* registerUser() {
   );
 
   try {
-    const authRegisterResponse: AuthTypes.AuthResponse = yield call(
+    const authRegisterResponse: AuthTypes.AuthResponseWithToken = yield call(
       authApi.registerUser,
       credentials,
     );

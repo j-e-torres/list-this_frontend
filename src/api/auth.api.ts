@@ -13,8 +13,8 @@ export class AuthApi {
 
   userLogin = async (
     creditials: AuthTypes.AuthLoginPayload,
-  ): Promise<AuthTypes.AuthResponse> => {
-    const res = await axios.post<AuthTypes.AuthResponse>(
+  ): Promise<AuthTypes.AuthResponseWithToken> => {
+    const res = await axios.post<AuthTypes.AuthResponseWithToken>(
       `${this.backendApi}/auth/login`,
       creditials,
     );
@@ -23,8 +23,8 @@ export class AuthApi {
 
   registerUser = async (
     credentials: AuthTypes.AuthSignupPayload,
-  ): Promise<AuthTypes.AuthResponse> => {
-    const res = await axios.post<AuthTypes.AuthResponse>(
+  ): Promise<AuthTypes.AuthResponseWithToken> => {
+    const res = await axios.post<AuthTypes.AuthResponseWithToken>(
       `${this.backendApi}/auth/register`,
       credentials,
     );
