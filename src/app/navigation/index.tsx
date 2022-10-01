@@ -74,7 +74,7 @@ interface NavState {
 }
 const Navigation: React.FC = () => {
   useInjectReducer({ key: sliceKey, reducer: reducer });
-  // useInjectSaga({ key: sliceKey, saga: userLoginSaga });
+  useInjectSaga({ key: sliceKey, saga: userTokenLoginSaga });
 
   const [NavState, setNavState] = useState<NavState>({
     loggedIn: false,
