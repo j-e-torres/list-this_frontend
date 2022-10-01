@@ -6,6 +6,7 @@ export interface AuthState {
   user: UserTypes.User | null;
   error: ErrorTypes.AllErrors | null;
   credentials: AuthTypes.AuthLoginPayload | AuthTypes.AuthSignupPayload | null;
+  token: string | null;
 }
 
 export const initialState: AuthState = {
@@ -13,6 +14,7 @@ export const initialState: AuthState = {
   error: null,
   user: null,
   credentials: null,
+  token: null,
 };
 
 const authSlice = createSlice({
@@ -59,6 +61,29 @@ const authSlice = createSlice({
 
     clearError(state, action: PayloadAction<null>) {
       state.error = null;
+    },
+
+    tokenLogin(state, action: PayloadAction<AuthTypes.Token>) {
+      state.loading = true;
+      state.error = null;
+      state.user = null;
+      state.token = action.payload;
+    },
+
+    tokenLoginSuccess(state, action: PayloadAction<UserTypes.User>) {
+      state.loading = false;
+      state.error = null;
+      state.user = action.payload;
+      state.token = null;
+    },
+    tokenLoginFailure(
+      state,
+      action: PayloadAction<ErrorTypes.ApiErrorResponse>,
+    ) {
+      state.loading = false;
+      state.error = action.payload;
+      state.user = null;
+      state.token = null;
     },
   },
 });

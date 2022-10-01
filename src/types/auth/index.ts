@@ -22,3 +22,5 @@ export interface AuthResponseWithToken extends AuthResponse {
 export interface AuthSignupPayload extends AuthLoginPayload {
   displayName: string;
 }
+
+export type Token = string;

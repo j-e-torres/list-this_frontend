@@ -8,6 +8,10 @@ import { Root } from '../screens/root/root.screen';
 import { Home } from '../screens/home/home.screen';
 
 import { getStoredToken } from '../../utils/async-storage';
+import {
+  useInjectReducer,
+  useInjectSaga,
+} from '../../utils/redux-injectors.ts';
 
 import {
   RootStackParamList,
@@ -15,6 +19,9 @@ import {
   AuthStackParams,
 } from '../../types/navigation';
 import { colors } from '../../styles';
+
+import { sliceKey, reducer } from '../../stores/auth/slice/auth.slice';
+import { userTokenLoginSaga } from '../../stores/auth/sagas/auth.saga';
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
@@ -66,6 +73,9 @@ interface NavState {
   isLoading: boolean;
 }
 const Navigation: React.FC = () => {
+  useInjectReducer({ key: sliceKey, reducer: reducer });
+  // useInjectSaga({ key: sliceKey, saga: userLoginSaga });
+
   const [NavState, setNavState] = useState<NavState>({
     loggedIn: false,
     isLoading: true,

@@ -7,7 +7,7 @@ import { selectAuthCredentials } from '../selectors/auth.selectors';
 import { AuthTypes, ErrorTypes } from '../../../types';
 import { storeToken } from '../../../utils/async-storage';
 
-export function* userLogin() {
+function* userLogin() {
   const credentials: AuthTypes.AuthLoginPayload = yield select(
     selectAuthCredentials,
   );
@@ -32,7 +32,7 @@ export function* userLogin() {
   }
 }
 
-export function* registerUser() {
+function* registerUser() {
   const credentials: AuthTypes.AuthSignupPayload = yield select(
     selectAuthCredentials,
   );
@@ -57,8 +57,14 @@ export function* registerUser() {
   }
 }
 
+function* userTokenLogin() {}
+
 export function* userLoginSaga() {
   yield takeEvery(actions.login.type, userLogin);
+}
+
+export function* userTokenLoginSaga() {
+  yield takeEvery(actions.login.type, userTokenLogin);
 }
 
 export function* registerUserSaga() {

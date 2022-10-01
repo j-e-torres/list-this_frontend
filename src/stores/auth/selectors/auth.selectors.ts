@@ -25,3 +25,8 @@ export const selectAuthCredentials = createSelector(
   [selectDomain],
   (state) => state.credentials,
 );
+
+export const selectAuthToken = createSelector(
+  [selectDomain],
+  (state) => state.token,
+);
