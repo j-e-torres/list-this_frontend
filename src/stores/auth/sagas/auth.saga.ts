@@ -3,7 +3,10 @@ import axios, { AxiosError } from 'axios';
 
 import { actions } from '../slice/auth.slice';
 import { authApi } from '../../../api/auth.api';
-import { selectAuthCredentials } from '../selectors/auth.selectors';
+import {
+  selectAuthCredentials,
+  selectAuthToken,
+} from '../selectors/auth.selectors';
 import { AuthTypes, ErrorTypes } from '../../../types';
 import { storeToken } from '../../../utils/async-storage';
 
@@ -57,14 +60,17 @@ function* registerUser() {
   }
 }
 
-function* userTokenLogin() {}
+function* userTokenLogin() {
+  const token: AuthTypes.Token = yield select(selectAuthToken);
+  console.log('WEEEEEEEEz', token);
+}
 
 export function* userLoginSaga() {
   yield takeEvery(actions.login.type, userLogin);
 }
 
 export function* userTokenLoginSaga() {
-  yield takeEvery(actions.login.type, userTokenLogin);
+  yield takeEvery(actions.tokenLogin.type, userTokenLogin);
 }
 
 export function* registerUserSaga() {

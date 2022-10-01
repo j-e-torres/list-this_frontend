@@ -22,6 +22,7 @@ import { colors } from '../../styles';
 
 import { sliceKey, reducer } from '../../stores/auth/slice/auth.slice';
 import { userTokenLoginSaga } from '../../stores/auth/sagas/auth.saga';
+import { AuthFacadeService } from '../../stores/auth/facades/auth.facade';
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
@@ -76,6 +77,7 @@ const Navigation: React.FC = () => {
   useInjectReducer({ key: sliceKey, reducer: reducer });
   useInjectSaga({ key: sliceKey, saga: userTokenLoginSaga });
 
+  const { authLoading, loginToken } = AuthFacadeService();
   const [NavState, setNavState] = useState<NavState>({
     loggedIn: false,
     isLoading: true,
@@ -90,6 +92,7 @@ const Navigation: React.FC = () => {
     async function fetchStoredToken() {
       const token = await getStoredToken();
 
+      loginToken(token);
       //  - check token against user
       console.log('JFJJDJDJDJ', token);
     }
