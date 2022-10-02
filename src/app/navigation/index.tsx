@@ -92,7 +92,9 @@ const Navigation: React.FC = () => {
     async function fetchStoredToken() {
       const token = await getStoredToken();
 
-      loginToken(token);
+      if (token) {
+        loginToken(token);
+      }
       //  - check token against user
       console.log('JFJJDJDJDJ', token);
     }

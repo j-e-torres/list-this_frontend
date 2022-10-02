@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { getBackendUrl } from '../utils/environment/environment';
 
-import { AuthTypes } from '../types';
+import { AuthTypes, UserTypes } from '../types';
 
 export class AuthApi {
   private backendApi: string;
@@ -27,6 +27,17 @@ export class AuthApi {
     const res = await axios.post<AuthTypes.AuthResponseWithToken>(
       `${this.backendApi}/auth/register`,
       credentials,
+    );
+
+    return res.data;
+  };
+
+  userLoginToken = async (
+    token: AuthTypes.Token,
+  ): Promise<AuthTypes.AuthResponse> => {
+    const res = await axios.get<AuthTypes.AuthResponse>(
+      `${this.backendApi}/auth/login`,
+      { headers: { authorization: token } },
     );
 
     return res.data;

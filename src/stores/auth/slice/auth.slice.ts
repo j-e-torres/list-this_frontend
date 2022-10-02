@@ -76,10 +76,7 @@ const authSlice = createSlice({
       state.user = action.payload;
       state.token = null;
     },
-    tokenLoginFailure(
-      state,
-      action: PayloadAction<ErrorTypes.ApiErrorResponse>,
-    ) {
+    tokenLoginFailure(state, action: PayloadAction<ErrorTypes.AllErrors>) {
       state.loading = false;
       state.error = action.payload;
       state.user = null;

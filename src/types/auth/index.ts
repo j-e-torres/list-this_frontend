@@ -23,4 +23,4 @@ export interface AuthSignupPayload extends AuthLoginPayload {
   displayName: string;
 }
 
-export type Token = string | null;
+export type Token = string;
