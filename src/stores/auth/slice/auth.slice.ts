@@ -32,6 +32,7 @@ const authSlice = createSlice({
       state.loading = false;
       state.user = action.payload;
       state.error = null;
+      state.credentials = null;
     },
 
     loginFailure(state, action: PayloadAction<ErrorTypes.AllErrors>) {
@@ -51,6 +52,7 @@ const authSlice = createSlice({
       state.loading = false;
       state.user = action.payload;
       state.error = null;
+      state.credentials = null;
     },
 
     registerFailure(state, action: PayloadAction<ErrorTypes.AllErrors>) {

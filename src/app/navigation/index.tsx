@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import {
+  createNativeStackNavigator,
+  NativeStackNavigationProp,
+} from '@react-navigation/native-stack';
+import { View, Text } from 'react-native';
 
 import { Login } from '../screens/login/login.screen';
 import { Signup } from '../screens/signup/signup.screen';
@@ -55,8 +59,6 @@ const UnauthScreenStack = () => {
   );
 };
 
-// const
-
 const AuthStack = createNativeStackNavigator<AuthStackParams>();
 
 const AuthScreenStack = () => {
@@ -69,59 +71,56 @@ const AuthScreenStack = () => {
   );
 };
 
-interface NavState {
-  loggedIn: boolean;
-  isLoading: boolean;
-}
 const Navigation: React.FC = () => {
   useInjectReducer({ key: sliceKey, reducer: reducer });
   useInjectSaga({ key: sliceKey, saga: userTokenLoginSaga });
 
-  const { authLoading, loginToken } = AuthFacadeService();
-  const [NavState, setNavState] = useState<NavState>({
-    loggedIn: false,
-    isLoading: true,
-  });
-  /*
-  - while checking, state.isLoading
-  - if token,  stated.loggedIn = true
-  */
+  const { authLoading, loginToken, authUser } = AuthFacadeService();
 
-  //  - get token in localStorage when component mounts
   useEffect(() => {
     async function fetchStoredToken() {
       const token = await getStoredToken();
 
       if (token) {
-        loginToken(token);
+        loginToken(`Bearer ${token}`);
       }
-      //  - check token against user
-      console.log('JFJJDJDJDJ', token);
     }
 
     fetchStoredToken();
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); //call once
 
-  // if (state.isLoading) {
-  //   // We haven't finished checking for the token yet
-  //   return <SplashScreen />;
-  // }
+  if (authLoading) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: 'red',
+          alignItems: 'center',
+        }}>
+        <Text style={{ fontSize: 24, color: 'white' }}>Loading</Text>
+      </View>
+    );
+  }
 
   return (
     <NavigationContainer>
       <RootStack.Navigator
         initialRouteName="UnauthStack"
         screenOptions={{ headerShown: false }}>
-        <RootStack.Screen
-          options={{ headerShown: false }}
-          name="UnauthStack"
-          component={UnauthScreenStack}
-        />
-        <RootStack.Screen
-          options={{ headerShown: false }}
-          name="AuthStack"
-          component={AuthScreenStack}
-        />
+        {authUser ? (
+          <RootStack.Screen
+            options={{ headerShown: false }}
+            name="AuthStack"
+            component={AuthScreenStack}
+          />
+        ) : (
+          <RootStack.Screen
+            options={{ headerShown: false }}
+            name="UnauthStack"
+            component={UnauthScreenStack}
+          />
+        )}
 
         {/* <Stack.Group>
             <Stack.Screen name="Root" component={Root} />

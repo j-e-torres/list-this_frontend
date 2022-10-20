@@ -1,4 +1,11 @@
-import { takeEvery, put, call, select, take } from 'redux-saga/effects';
+import {
+  takeEvery,
+  put,
+  call,
+  select,
+  take,
+  PutEffect,
+} from 'redux-saga/effects';
 import axios, { AxiosError } from 'axios';
 
 import { actions } from '../slice/auth.slice';
@@ -20,7 +27,6 @@ function* userLogin() {
       authApi.userLogin,
       credentials,
     );
-    console.log('JJJJJJJ', authLoginResponse);
     storeToken(authLoginResponse.token.accessToken);
 
     yield put(actions.loginSuccess(authLoginResponse.data.user));
