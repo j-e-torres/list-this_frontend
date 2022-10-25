@@ -1,9 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import {
-  createNativeStackNavigator,
-  NativeStackNavigationProp,
-} from '@react-navigation/native-stack';
+import React, { useEffect } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { View, Text } from 'react-native';
 
 import { Login } from '../screens/login/login.screen';
@@ -21,6 +18,7 @@ import {
   RootStackParamList,
   UnauthorizedStackParams,
   AuthStackParams,
+  ModalStackParams,
 } from '../../types/navigation';
 import { colors } from '../../styles';
 
@@ -31,6 +29,10 @@ import { AuthFacadeService } from '../../stores/auth/facades/auth.facade';
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 const UnauthStack = createNativeStackNavigator<UnauthorizedStackParams>();
+
+const ModalStack = createNativeStackNavigator<ModalStackParams>();
+
+const AuthStack = createNativeStackNavigator<AuthStackParams>();
 
 const UnauthScreenStack = () => {
   return (
@@ -59,8 +61,6 @@ const UnauthScreenStack = () => {
   );
 };
 
-const AuthStack = createNativeStackNavigator<AuthStackParams>();
-
 const AuthScreenStack = () => {
   return (
     <AuthStack.Navigator initialRouteName="Home">
@@ -68,6 +68,16 @@ const AuthScreenStack = () => {
         <AuthStack.Screen name="Home" component={Home} />
       </AuthStack.Group>
     </AuthStack.Navigator>
+  );
+};
+
+const ModalScreenStack = () => {
+  return (
+    <ModalStack.Navigator screenOptions={{ presentation: 'modal' }}>
+      <ModalStack.Group>
+        <ModalStack.Screen name="CreateListModal" component={CreateListModal} />
+      </ModalStack.Group>
+    </ModalStack.Navigator>
   );
 };
 
@@ -121,26 +131,9 @@ const Navigation: React.FC = () => {
             component={UnauthScreenStack}
           />
         )}
+        <RootStack.Screen name="Modals" component={ModalScreenStack} />
 
-        {/* <Stack.Group>
-            <Stack.Screen name="Root" component={Root} />
-            <Stack.Screen name="Login" component={Login} />
-            <Stack.Screen name="Signup" component={Signup} />
-          </Stack.Group> */}
-
-        {/* {isLoggedIn ? (
-            // Screens for logged in users
-            <Stack.Group>
-              <Stack.Screen name="Home" component={Home} />
-              <Stack.Screen name="Profile" component={Profile} />
-            </Stack.Group>
-          ) : (
-            // Auth screens
-            <Stack.Group screenOptions={{headerShown: false}}>
-              <Stack.Screen name="SignIn" component={SignIn} />
-              <Stack.Screen name="SignUp" component={SignUp} />
-            </Stack.Group>
-          )}
+        {/*
           Common modal screens
           <Stack.Group screenOptions={{presentation: 'modal'}}>
             <Stack.Screen name="Help" component={Help} />
@@ -151,24 +144,4 @@ const Navigation: React.FC = () => {
   );
 };
 
-// {/* <Stack.Navigator>
-// {isLoggedIn ? (
-//   // Screens for logged in users
-//   <Stack.Group>
-//     <Stack.Screen name="Home" component={Home} />
-//     <Stack.Screen name="Profile" component={Profile} />
-//   </Stack.Group>
-// ) : (
-//   // Auth screens
-//   <Stack.Group screenOptions={{ headerShown: false }}>
-//     <Stack.Screen name="SignIn" component={SignIn} />
-//     <Stack.Screen name="SignUp" component={SignUp} />
-//   </Stack.Group>
-// )}
-// {/* Common modal screens */}
-// <Stack.Group screenOptions={{ presentation: 'modal' }}>
-//   <Stack.Screen name="Help" component={Help} />
-//   <Stack.Screen name="Invite" component={Invite} />
-// </Stack.Group>
-// </Stack.Navigator> */}
 export default Navigation;

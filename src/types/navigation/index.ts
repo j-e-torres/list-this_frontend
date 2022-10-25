@@ -10,6 +10,7 @@ import { NavigatorScreenParams } from '@react-navigation/native';
 export type RootStackParamList = {
   UnauthStack: NavigatorScreenParams<UnauthorizedStackParams>;
   AuthStack: NavigatorScreenParams<AuthStackParams>;
+  Modals: NavigatorScreenParams<ModalStackParams>;
 };
 
 export type UnauthorizedStackParams = {
@@ -20,4 +21,8 @@ export type UnauthorizedStackParams = {
 
 export type AuthStackParams = {
   Home: undefined;
+};
+
+export type ModalStackParams = {
+  CreateListModal: undefined;
 };
