@@ -18,11 +18,17 @@ import { ScreenWrapper } from '../../components/screen-wrapper/screen-wrapper';
 import { Button } from '../../components/button/button';
 import { Variant } from '../../../types/variant';
 
-import { RootStackParamList } from '../../../types/navigation';
+import {
+  RootStackParamList,
+  ModalStackParams,
+} from '../../../types/navigation';
 import { UserTypes } from '../../../types';
 
 export const Home: React.FC = () => {
   useInjectReducer({ key: sliceKey, reducer: reducer });
+
+  const modalNavigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList, 'Modals'>>();
 
   const { authUser } = AuthFacadeService();
 
@@ -33,7 +39,14 @@ export const Home: React.FC = () => {
       </View>
 
       <View style={styles.buttonView}>
-        <Button style={styles.buttonWidth} variant={Variant.primary}>
+        <Button
+          onPress={() =>
+            modalNavigation.navigate('Modals', {
+              screen: 'CreateListModal',
+            })
+          }
+          style={styles.buttonWidth}
+          variant={Variant.primary}>
           <Text>Start a List</Text>
         </Button>
 

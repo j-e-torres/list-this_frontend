@@ -8,6 +8,8 @@ import { Signup } from '../screens/signup/signup.screen';
 import { Root } from '../screens/root/root.screen';
 import { Home } from '../screens/home/home.screen';
 
+import { CreateListModal } from '../modals/create-list-modal/create-list.modal';
+
 import { getStoredToken } from '../../utils/async-storage';
 import {
   useInjectReducer,
