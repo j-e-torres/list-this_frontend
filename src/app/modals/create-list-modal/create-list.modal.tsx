@@ -23,14 +23,24 @@ import { ScreenWrapper } from '../../components/screen-wrapper/screen-wrapper';
 import { Button } from '../../components/button/button';
 import { colors } from '../../../styles';
 
-import { RootStackParamList } from '../../../types/navigation';
-import { Variant } from '../../../types/variant';
+import { CreateListModalState, Variant, NavigationTypes } from '../../../types';
 
 export const CreateListModal: React.FC = () => {
+  const [listState, setListState] = useState<CreateListModalState>({
+    listName: '',
+    taskName: '',
+    tasks: [],
+  });
+
   const authNavigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamList, 'AuthStack'>>();
+    useNavigation<
+      NativeStackNavigationProp<NavigationTypes.RootStackParamList, 'AuthStack'>
+    >();
 
   return (
+    /*
+      - use state for listName, tasks, taskName
+    */
     <ScreenWrapper>
       {/* <KeyboardAvoidingView behavior="padding"> */}
       <View style={{ flex: 1, marginBottom: 8 }}>

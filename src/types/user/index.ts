@@ -2,7 +2,7 @@ import { List } from '../list';
 
 export interface User {
   id: string;
-  role: Role,
+  role: Role;
   username: string;
   displayName: string;
   lists: List[];
@@ -10,5 +10,5 @@ export interface User {
 
 export enum Role {
   USER = 'user',
-  ADMIN = 'admin'
+  ADMIN = 'admin',
 }
