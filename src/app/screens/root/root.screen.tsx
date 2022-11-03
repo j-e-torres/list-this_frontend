@@ -19,7 +19,7 @@ import {
   RootStackParamList,
   UnauthorizedStackParams,
 } from '../../../types/navigation';
-import { Variant } from '../../../types/variant';
+import { Variant } from '../../../types';
 
 export const Root = () => {
   const navigation =

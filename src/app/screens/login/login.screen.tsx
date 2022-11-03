@@ -21,18 +21,18 @@ import { userLoginSaga } from '../../../stores/auth/sagas/auth.saga';
 import { AuthFacadeService } from '../../../stores/auth/facades/auth.facade';
 
 import { colors } from '../../../styles';
-import { ErrorTypes } from '../../../types';
-import { Variant } from '../../../types/variant';
+import { ErrorTypes, Variant, NavigationTypes } from '../../../types';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../../types/navigation';
 
 export const Login: React.FC = () => {
   useInjectReducer({ key: sliceKey, reducer: reducer });
   useInjectSaga({ key: sliceKey, saga: userLoginSaga });
 
   const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamList, 'AuthStack'>>();
+    useNavigation<
+      NativeStackNavigationProp<NavigationTypes.RootStackParamList, 'AuthStack'>
+    >();
 
   const { login, authError, clearError, authUser } = AuthFacadeService();
 

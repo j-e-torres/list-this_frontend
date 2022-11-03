@@ -16,25 +16,23 @@ import {
   useInjectSaga,
 } from '../../utils/redux-injectors.ts';
 
-import {
-  RootStackParamList,
-  UnauthorizedStackParams,
-  AuthStackParams,
-  ModalStackParams,
-} from '../../types/navigation';
+import { NavigationTypes } from '../../types';
 import { colors } from '../../styles';
 
 import { sliceKey, reducer } from '../../stores/auth/slice/auth.slice';
 import { userTokenLoginSaga } from '../../stores/auth/sagas/auth.saga';
 import { AuthFacadeService } from '../../stores/auth/facades/auth.facade';
 
-const RootStack = createNativeStackNavigator<RootStackParamList>();
+const RootStack =
+  createNativeStackNavigator<NavigationTypes.RootStackParamList>();
 
-const UnauthStack = createNativeStackNavigator<UnauthorizedStackParams>();
+const UnauthStack =
+  createNativeStackNavigator<NavigationTypes.UnauthorizedStackParams>();
 
-const ModalStack = createNativeStackNavigator<ModalStackParams>();
+const ModalStack =
+  createNativeStackNavigator<NavigationTypes.ModalStackParams>();
 
-const AuthStack = createNativeStackNavigator<AuthStackParams>();
+const AuthStack = createNativeStackNavigator<NavigationTypes.AuthStackParams>();
 
 const UnauthScreenStack = () => {
   return (

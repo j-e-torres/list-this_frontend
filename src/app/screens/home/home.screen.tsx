@@ -16,7 +16,7 @@ import { AuthFacadeService } from '../../../stores/auth/facades/auth.facade';
 import { colors } from '../../../styles';
 import { ScreenWrapper } from '../../components/screen-wrapper/screen-wrapper';
 import { Button } from '../../components/button/button';
-import { Variant } from '../../../types/variant';
+import { Variant } from '../../../types';
 
 import {
   RootStackParamList,

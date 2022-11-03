@@ -23,16 +23,16 @@ import { registerUserSaga } from '../../../stores/auth/sagas/auth.saga';
 import { AuthFacadeService } from '../../../stores/auth/facades/auth.facade';
 
 import { colors } from '../../../styles';
-import { ErrorTypes } from '../../../types';
-import { Variant } from '../../../types/variant';
-import { RootStackParamList } from '../../../types/navigation';
+import { ErrorTypes, Variant, NavigationTypes } from '../../../types';
 
 export const Signup: React.FC = () => {
   useInjectReducer({ key: sliceKey, reducer: reducer });
   useInjectSaga({ key: sliceKey, saga: registerUserSaga });
 
   const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamList, 'AuthStack'>>();
+    useNavigation<
+      NativeStackNavigationProp<NavigationTypes.RootStackParamList, 'AuthStack'>
+    >();
 
   const { signup, authError, clearError, authUser } = AuthFacadeService();
 

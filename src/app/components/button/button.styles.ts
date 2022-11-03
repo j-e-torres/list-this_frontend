@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { colors } from '../../../styles';
 import { ButtonStylesContext, ButtonStyles } from '../../../types/button';
-import { Variant } from '../../../types/variant';
+import { Variant } from '../../../types';
 
 const sharedButtonStyles = {
   alignItems: 'center',
