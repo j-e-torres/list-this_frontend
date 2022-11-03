@@ -8,6 +8,7 @@ import {
   Text,
   StyleSheet,
   KeyboardAvoidingView,
+  ScrollView,
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Entypo';
@@ -23,6 +24,7 @@ import { Button } from '../../components/button/button';
 import { colors } from '../../../styles';
 
 import { RootStackParamList } from '../../../types/navigation';
+import { Variant } from '../../../types/variant';
 
 export const CreateListModal: React.FC = () => {
   const authNavigation =
@@ -30,11 +32,115 @@ export const CreateListModal: React.FC = () => {
 
   return (
     <ScreenWrapper>
-      <KeyboardAvoidingView behavior="padding">
-        <View>
-          <Text onPress={() => authNavigation.goBack()}>CreateList</Text>
+      {/* <KeyboardAvoidingView behavior="padding"> */}
+      <View style={{ flex: 1, marginBottom: 8 }}>
+        <TextInput
+          style={styles.input}
+          // onChangeText={(listName) => this.setState({ listName })}
+          placeholder="List name"
+          autoFocus={true}
+        />
+      </View>
+
+      <View style={{ flex: 3, marginBottom: 12 }}>
+        <ScrollView nestedScrollEnabled={true}>
+          <View style={styles.itemLine}>
+            <Text style={styles.item}>Example Task</Text>
+          </View>
+          <View style={styles.itemLine}>
+            <Text style={styles.item}>Example Task</Text>
+          </View>
+          <View style={styles.itemLine}>
+            <Text style={styles.item}>Example Task</Text>
+          </View>
+          <View style={styles.itemLine}>
+            <Text style={styles.item}>Example Task</Text>
+          </View>
+          <View style={styles.itemLine}>
+            <Text style={styles.item}>Example Task</Text>
+          </View>
+          <View style={styles.itemLine}>
+            <Text style={styles.item}>Example Task</Text>
+          </View>
+          <View style={styles.itemLine}>
+            <Text style={styles.item}>Example Task</Text>
+          </View>
+          <View style={styles.itemLine}>
+            <Text style={styles.item}>Example Task</Text>
+          </View>
+          <View style={styles.itemLine}>
+            <Text style={styles.item}>Example Task</Text>
+          </View>
+          <View style={styles.itemLine}>
+            <Text style={styles.item}>Example Task</Text>
+          </View>
+          <View style={styles.itemLine}>
+            <Text style={styles.item}>Example Task</Text>
+          </View>
+          <View style={styles.itemLine}>
+            <Text style={styles.item}>Example Task</Text>
+          </View>
+          <View style={styles.itemLine}>
+            <Text style={styles.item}>Example Task</Text>
+          </View>
+          <View style={styles.itemLine}>
+            <Text style={styles.item}>Example Task</Text>
+          </View>
+          <View style={styles.itemLine}>
+            <Text style={styles.item}>Example Task</Text>
+          </View>
+          <View style={styles.itemLine}>
+            <Text style={styles.item}>Example Task</Text>
+          </View>
+        </ScrollView>
+      </View>
+
+      <View
+        style={{
+          flex: 1,
+          flexDirection: 'row',
+          alignItems: 'center',
+          marginBottom: 12,
+        }}>
+        <View style={{ flex: 2 }}>
+          <TextInput style={styles.input} placeholder="Item" />
         </View>
-      </KeyboardAvoidingView>
+
+        <View style={{ flex: 1 }}>
+          <Button variant={Variant.secondary}>Add</Button>
+        </View>
+      </View>
+
+      <View style={{ flex: 1 }}>
+        <Button variant={Variant.primary}>Done with List</Button>
+      </View>
+      {/* </KeyboardAvoidingView> */}
     </ScreenWrapper>
   );
 };
+
+const styles = StyleSheet.create({
+  input: {
+    height: 50,
+    marginVertical: 10,
+    padding: 4,
+    fontSize: 25,
+    borderBottomWidth: 1,
+    borderColor: colors.lightOrange,
+  },
+  itemLine: {
+    paddingLeft: 5,
+    paddingVertical: 5,
+    borderLeftWidth: 1,
+    borderBottomWidth: 1,
+    borderLeftColor: colors.lightPink2,
+    borderBottomColor: colors.lightGreyBlue2,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  item: {
+    flex: 1,
+    fontSize: 18,
+    color: colors.lightBlack,
+  },
+});
