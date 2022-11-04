@@ -59,7 +59,9 @@ export const CreateListModal: React.FC = () => {
     */
     <ScreenWrapper>
       {/* <KeyboardAvoidingView behavior="padding"> */}
-
+      {/* <ScrollView
+        keyboardShouldPersistTaps="always"
+        contentContainerStyle={{ flexGrow: 1 }}> */}
       {listState.error.length > 0 && (
         <View>
           <Text style={styles.error}>{listState.error}</Text>
@@ -77,54 +79,13 @@ export const CreateListModal: React.FC = () => {
 
       <View style={{ flex: 3, marginBottom: 12 }}>
         <ScrollView>
-          <View style={styles.itemLine}>
-            <Text style={styles.item}>Example Task</Text>
-          </View>
-          <View style={styles.itemLine}>
-            <Text style={styles.item}>Example Task</Text>
-          </View>
-          <View style={styles.itemLine}>
-            <Text style={styles.item}>Example Task</Text>
-          </View>
-          <View style={styles.itemLine}>
-            <Text style={styles.item}>Example Task</Text>
-          </View>
-          <View style={styles.itemLine}>
-            <Text style={styles.item}>Example Task</Text>
-          </View>
-          <View style={styles.itemLine}>
-            <Text style={styles.item}>Example Task</Text>
-          </View>
-          <View style={styles.itemLine}>
-            <Text style={styles.item}>Example Task</Text>
-          </View>
-          <View style={styles.itemLine}>
-            <Text style={styles.item}>Example Task</Text>
-          </View>
-          <View style={styles.itemLine}>
-            <Text style={styles.item}>Example Task</Text>
-          </View>
-          <View style={styles.itemLine}>
-            <Text style={styles.item}>Example Task</Text>
-          </View>
-          <View style={styles.itemLine}>
-            <Text style={styles.item}>Example Task</Text>
-          </View>
-          <View style={styles.itemLine}>
-            <Text style={styles.item}>Example Task</Text>
-          </View>
-          <View style={styles.itemLine}>
-            <Text style={styles.item}>Example Task</Text>
-          </View>
-          <View style={styles.itemLine}>
-            <Text style={styles.item}>Example Task</Text>
-          </View>
-          <View style={styles.itemLine}>
-            <Text style={styles.item}>Example Task</Text>
-          </View>
-          <View style={styles.itemLine}>
-            <Text style={styles.item}>Example Task</Text>
-          </View>
+          {listState.tasks.map((task, idx) => {
+            return (
+              <View key={idx} style={styles.itemLine}>
+                <Text style={styles.item}>{task.taskName}</Text>
+              </View>
+            );
+          })}
         </ScrollView>
       </View>
 
@@ -157,6 +118,7 @@ export const CreateListModal: React.FC = () => {
         <Button variant={Variant.primary}>Done with List</Button>
       </View>
       {/* </KeyboardAvoidingView> */}
+      {/* </ScrollView> */}
     </ScreenWrapper>
   );
 };
