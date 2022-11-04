@@ -30,12 +30,27 @@ export const CreateListModal: React.FC = () => {
     listName: '',
     taskName: '',
     tasks: [],
+    error: '',
   });
 
   const authNavigation =
     useNavigation<
       NativeStackNavigationProp<NavigationTypes.RootStackParamList, 'AuthStack'>
     >();
+
+  const addToList = () => {
+    const { taskName, tasks } = listState;
+
+    if (taskName.length < 1) {
+      setListState({ ...listState, error: "Can't add empty item" });
+    } else {
+      setListState({
+        ...listState,
+        tasks: [...tasks, { taskName }],
+        taskName: '',
+      });
+    }
+  };
 
   return (
     /*
