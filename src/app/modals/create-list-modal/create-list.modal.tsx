@@ -48,6 +48,7 @@ export const CreateListModal: React.FC = () => {
         ...listState,
         tasks: [...tasks, { taskName }],
         taskName: '',
+        error: '',
       });
     }
   };
@@ -58,6 +59,13 @@ export const CreateListModal: React.FC = () => {
     */
     <ScreenWrapper>
       {/* <KeyboardAvoidingView behavior="padding"> */}
+
+      {listState.error.length > 0 && (
+        <View>
+          <Text style={styles.error}>{listState.error}</Text>
+        </View>
+      )}
+
       <View style={{ flex: 1, marginBottom: 8 }}>
         <TextInput
           style={styles.input}
@@ -68,7 +76,7 @@ export const CreateListModal: React.FC = () => {
       </View>
 
       <View style={{ flex: 3, marginBottom: 12 }}>
-        <ScrollView nestedScrollEnabled={true}>
+        <ScrollView>
           <View style={styles.itemLine}>
             <Text style={styles.item}>Example Task</Text>
           </View>
@@ -128,11 +136,20 @@ export const CreateListModal: React.FC = () => {
           marginBottom: 12,
         }}>
         <View style={{ flex: 2 }}>
-          <TextInput style={styles.input} placeholder="Item" />
+          <TextInput
+            value={listState.taskName}
+            style={styles.input}
+            placeholder="Item"
+            onChangeText={(task) =>
+              setListState({ ...listState, taskName: task })
+            }
+          />
         </View>
 
         <View style={{ flex: 1 }}>
-          <Button variant={Variant.secondary}>Add</Button>
+          <Button onPress={() => addToList()} variant={Variant.secondary}>
+            Add
+          </Button>
         </View>
       </View>
 
@@ -167,5 +184,11 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 18,
     color: colors.lightBlack,
+  },
+  error: {
+    padding: 4,
+    color: colors.lightPink2,
+    fontSize: 12,
+    textAlign: 'center',
   },
 });
