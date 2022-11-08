@@ -8,3 +8,8 @@ export interface List {
   listNotes: string;
   tasks: Task[];
 }
+
+export interface CreateListPayload {
+  list: { listName: string; listOwner: string };
+  tasks: { taskName: string }[];
+}

@@ -1,4 +1,6 @@
 import { User } from '../user';
+import { MODELS } from '../common';
+import { ApiResponse } from '../common';
 
 export interface AuthToken {
   accessToken: string;
@@ -10,12 +12,7 @@ export interface AuthLoginPayload {
   password: string;
 }
 
-export interface AuthResponse {
-  status: number;
-  data: { user: User };
-}
-
-export interface AuthResponseWithToken extends AuthResponse {
+export interface AuthResponseWithToken extends ApiResponse<User> {
   token: AuthToken;
 }
 

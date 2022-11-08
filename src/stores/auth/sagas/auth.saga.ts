@@ -14,7 +14,7 @@ import {
   selectAuthCredentials,
   selectAuthToken,
 } from '../selectors/auth.selectors';
-import { AuthTypes, ErrorTypes } from '../../../types';
+import { AuthTypes, ErrorTypes, UserTypes, ApiResponse } from '../../../types';
 import { storeToken } from '../../../utils/async-storage';
 
 function* userLogin() {
@@ -70,7 +70,7 @@ function* userTokenLogin() {
   const token: AuthTypes.Token = yield select(selectAuthToken);
 
   try {
-    const authLoginTokenReponse: AuthTypes.AuthResponse = yield call(
+    const authLoginTokenReponse: ApiResponse<UserTypes.User> = yield call(
       authApi.userLoginToken,
       token,
     );
