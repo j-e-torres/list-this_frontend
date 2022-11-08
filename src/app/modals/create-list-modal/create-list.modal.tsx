@@ -53,6 +53,27 @@ export const CreateListModal: React.FC = () => {
     }
   };
 
+  const createList = () => {
+    // const {createNewList, navigation, userLogin} = this.props;
+
+    const { listName, tasks } = listState;
+
+    // if (listName.length > 0) {
+    //   return createNewList(userLogin.id, {listName, tasks})
+    //     .then(() => this.setState({success: 'Successfully created.'}))
+    //     .then(() =>
+    //       setTimeout(function() {
+    //         navigation.navigate('UserLists');
+    //       }, 250),
+    //     )
+    //     .catch(e => {
+    //       this.setState({error: e.response.data.errors});
+    //     });
+    // } else {
+    //   this.setState({error: ['List name cannot be empty']});
+    // }
+  };
+
   return (
     /*
       - use state for listName, tasks, taskName
@@ -68,12 +89,19 @@ export const CreateListModal: React.FC = () => {
         </View>
       )}
 
-      <View style={{ flex: 1, marginBottom: 8 }}>
+      <View
+        style={{
+          flex: 1,
+          marginBottom: 8,
+          position: 'relative',
+        }}>
+        <Text style={styles.required}>*</Text>
         <TextInput
-          style={styles.input}
-          // onChangeText={(listName) => this.setState({ listName })}
+          style={[styles.input, { flex: 1 }]}
+          onChangeText={(listName) => setListState({ ...listState, listName })}
           placeholder="List name"
           autoFocus={true}
+          value={listState.listName}
         />
       </View>
 
@@ -131,6 +159,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     borderBottomWidth: 1,
     borderColor: colors.lightOrange,
+    paddingLeft: 12,
   },
   itemLine: {
     paddingLeft: 5,
@@ -152,5 +181,10 @@ const styles = StyleSheet.create({
     color: colors.lightPink2,
     fontSize: 12,
     textAlign: 'center',
+  },
+  required: {
+    top: 8,
+    color: colors.darkOrange,
+    position: 'absolute',
   },
 });
