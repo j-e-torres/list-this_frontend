@@ -34,6 +34,7 @@ const listSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
       state.createListPayload = null;
+      state.list = null;
     },
   },
 });

@@ -2,14 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import {
-  View,
-  TextInput,
-  Text,
-  StyleSheet,
-  KeyboardAvoidingView,
-  ScrollView,
-} from 'react-native';
+import { View, TextInput, Text, StyleSheet, ScrollView } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Entypo';
 
@@ -20,12 +13,22 @@ import {
 
 import { ScreenWrapper } from '../../components/screen-wrapper/screen-wrapper';
 
+import { sliceKey, reducer } from '../../../stores/list/slice/list.slice';
+import { createListSaga } from '../../../stores/list/sagas/list.saga';
+import { ListFacadeService } from '../../../stores/list/facades/list.facade';
+
 import { Button } from '../../components/button/button';
 import { colors } from '../../../styles';
 
 import { CreateListModalState, Variant, NavigationTypes } from '../../../types';
 
 export const CreateListModal: React.FC = () => {
+  useInjectReducer({ key: sliceKey, reducer: reducer });
+  useInjectSaga({ key: sliceKey, saga: createListSaga });
+
+  const { createListDispatch, list, listLoading, listError } =
+    ListFacadeService();
+
   const [listState, setListState] = useState<CreateListModalState>({
     listName: '',
     taskName: '',
