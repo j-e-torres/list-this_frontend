@@ -16,18 +16,26 @@ import { ScreenWrapper } from '../../components/screen-wrapper/screen-wrapper';
 import { sliceKey, reducer } from '../../../stores/list/slice/list.slice';
 import { createListSaga } from '../../../stores/list/sagas/list.saga';
 import { ListFacadeService } from '../../../stores/list/facades/list.facade';
+import { AuthFacadeService } from '../../../stores/auth/facades/auth.facade';
 
 import { Button } from '../../components/button/button';
 import { colors } from '../../../styles';
+import { getStoredToken } from '../../../utils/async-storage';
 
-import { CreateListModalState, Variant, NavigationTypes } from '../../../types';
+import {
+  CreateListModalState,
+  Variant,
+  NavigationTypes,
+  ListTypes,
+} from '../../../types';
 
 export const CreateListModal: React.FC = () => {
   useInjectReducer({ key: sliceKey, reducer: reducer });
   useInjectSaga({ key: sliceKey, saga: createListSaga });
 
-  const { createListDispatch, list, listLoading, listError } =
+  const { createListDispatch, list, listLoading, listError, clearList } =
     ListFacadeService();
+  const { authUser } = AuthFacadeService();
 
   const [listState, setListState] = useState<CreateListModalState>({
     listName: '',
@@ -40,6 +48,20 @@ export const CreateListModal: React.FC = () => {
     useNavigation<
       NativeStackNavigationProp<NavigationTypes.RootStackParamList, 'AuthStack'>
     >();
+
+  useEffect(() => {
+    if (list) {
+      authNavigation.navigate('AuthStack', {
+        screen: 'Home',
+      });
+    }
+
+    return () => {
+      if (list) {
+        clearList();
+      }
+    };
+  }, [list, authNavigation, clearList]);
 
   const addToList = () => {
     const { taskName, tasks } = listState;
@@ -56,25 +78,18 @@ export const CreateListModal: React.FC = () => {
     }
   };
 
-  const createList = () => {
-    // const {createNewList, navigation, userLogin} = this.props;
-
+  const createList = async () => {
     const { listName, tasks } = listState;
+    const buildPayload: ListTypes.CreateListPayload = {
+      list: {
+        listName,
+        listOwner: authUser?.username,
+      },
+      tasks,
+      token: await getStoredToken(),
+    };
 
-    // if (listName.length > 0) {
-    //   return createNewList(userLogin.id, {listName, tasks})
-    //     .then(() => this.setState({success: 'Successfully created.'}))
-    //     .then(() =>
-    //       setTimeout(function() {
-    //         navigation.navigate('UserLists');
-    //       }, 250),
-    //     )
-    //     .catch(e => {
-    //       this.setState({error: e.response.data.errors});
-    //     });
-    // } else {
-    //   this.setState({error: ['List name cannot be empty']});
-    // }
+    createListDispatch(buildPayload);
   };
 
   return (
@@ -146,7 +161,9 @@ export const CreateListModal: React.FC = () => {
       </View>
 
       <View style={{ flex: 1 }}>
-        <Button variant={Variant.primary}>Done with List</Button>
+        <Button onPress={createList} variant={Variant.primary}>
+          Done with List
+        </Button>
       </View>
       {/* </KeyboardAvoidingView> */}
       {/* </ScrollView> */}

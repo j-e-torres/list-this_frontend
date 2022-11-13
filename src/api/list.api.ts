@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { getBackendUrl } from '../utils/environment/environment';
 
-import { ListTypes, ApiResponse } from '../types';
+import { ListTypes, ApiResponse, AuthTypes } from '../types';
 
 export class ListApi {
   private backendApi: string;
@@ -15,8 +15,13 @@ export class ListApi {
     payload: ListTypes.CreateListPayload,
   ): Promise<ApiResponse<ListTypes.List>> => {
     const res = await axios.post<ApiResponse<ListTypes.List>>(
-      `${this.backendApi}/list`,
+      `${this.backendApi}/lists`,
       payload,
+      {
+        headers: {
+          authorization: `Bearer ${payload.token}`,
+        },
+      },
     );
 
     return res.data;

@@ -36,6 +36,9 @@ const listSlice = createSlice({
       state.createListPayload = null;
       state.list = null;
     },
+    clearList(state, action: PayloadAction<null>) {
+      state.list = null;
+    },
   },
 });
 

@@ -4,7 +4,7 @@ import { RootState } from '../../../stores/reducers/root-state';
 
 import { initialState } from '../slice/list.slice';
 
-const selectDomain = (state: RootState) => state.listState || initialState;
+const selectDomain = (state: RootState) => state.list || initialState;
 
 export const selectCreateListPayload = createSelector(
   [selectDomain],

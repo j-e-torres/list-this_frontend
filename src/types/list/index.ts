@@ -10,6 +10,7 @@ export interface List {
 }
 
 export interface CreateListPayload {
-  list: { listName: string; listOwner: string };
+  list: { listName: string; listOwner: string | undefined };
   tasks: { taskName: string }[];
+  token: string | null;
 }

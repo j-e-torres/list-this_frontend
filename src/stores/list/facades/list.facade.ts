@@ -20,5 +20,9 @@ export const ListFacadeService = () => {
     dispatch(actions.createList(payload));
   };
 
-  return { createListDispatch, list, listError, listLoading };
+  const clearList = (): void => {
+    dispatch(actions.clearList(null));
+  };
+
+  return { createListDispatch, clearList, list, listError, listLoading };
 };

@@ -11,12 +11,15 @@ import axios, { AxiosError } from 'axios';
 import { actions } from '../slice/list.slice';
 import { listApi } from '../../../api/list.api';
 import { selectCreateListPayload } from '../selectors/list.selectors';
-import { ErrorTypes, ApiResponse, ListTypes } from '../../../types';
+import { ErrorTypes, ApiResponse, ListTypes, AuthTypes } from '../../../types';
+import { getStoredToken } from '../../../utils/async-storage';
 
 function* createList() {
   const payload: ListTypes.CreateListPayload = yield select(
     selectCreateListPayload,
   );
+
+  // const token: string | null = await getStoredToken();
 
   try {
     const createListResponse: ApiResponse<ListTypes.List> = yield call(
