@@ -42,6 +42,7 @@ export const CreateListModal: React.FC = () => {
     taskName: '',
     tasks: [],
     error: '',
+    success: '',
   });
 
   const authNavigation =
@@ -51,9 +52,12 @@ export const CreateListModal: React.FC = () => {
 
   useEffect(() => {
     if (list) {
-      authNavigation.navigate('AuthStack', {
-        screen: 'Home',
-      });
+      setListState({ ...listState, success: 'Successfully created.' });
+      setTimeout(() => {
+        authNavigation.navigate('AuthStack', {
+          screen: 'Home',
+        });
+      }, 750);
     }
 
     return () => {
@@ -61,7 +65,7 @@ export const CreateListModal: React.FC = () => {
         clearList();
       }
     };
-  }, [list, authNavigation, clearList]);
+  }, [list, authNavigation, clearList, listState]);
 
   const addToList = () => {
     const { taskName, tasks } = listState;
@@ -93,14 +97,18 @@ export const CreateListModal: React.FC = () => {
   };
 
   return (
-    /*
-      - use state for listName, tasks, taskName
-    */
     <ScreenWrapper>
       {/* <KeyboardAvoidingView behavior="padding"> */}
       {/* <ScrollView
         keyboardShouldPersistTaps="always"
         contentContainerStyle={{ flexGrow: 1 }}> */}
+
+      {listState.success.length > 0 && (
+        <View>
+          <Text style={styles.success}>{listState.success}</Text>
+        </View>
+      )}
+
       {listState.error.length > 0 && (
         <View>
           <Text style={styles.error}>{listState.error}</Text>
@@ -162,7 +170,7 @@ export const CreateListModal: React.FC = () => {
 
       <View style={{ flex: 1 }}>
         <Button onPress={createList} variant={Variant.primary}>
-          Done with List
+          Create List
         </Button>
       </View>
       {/* </KeyboardAvoidingView> */}
@@ -198,13 +206,21 @@ const styles = StyleSheet.create({
   },
   error: {
     padding: 4,
-    color: colors.lightPink2,
-    fontSize: 12,
+    color: colors.white,
+    backgroundColor: colors.lightPink2,
+    fontSize: 18,
     textAlign: 'center',
   },
   required: {
     top: 8,
     color: colors.darkOrange,
     position: 'absolute',
+  },
+  success: {
+    padding: 4,
+    color: colors.white,
+    backgroundColor: colors.green,
+    fontSize: 18,
+    textAlign: 'center',
   },
 });

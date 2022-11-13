@@ -3,6 +3,7 @@ export interface CreateListModalState {
   taskName: string;
   tasks: CreateListModalTask[];
   error: string;
+  success: string;
 }
 
 export interface CreateListModalTask {
