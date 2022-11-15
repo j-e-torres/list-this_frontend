@@ -45,12 +45,12 @@ export const Home: React.FC = () => {
               screen: 'CreateListModal',
             })
           }
-          style={styles.buttonWidth}
+          width={300}
           variant={Variant.primary}>
           <Text>Start a List</Text>
         </Button>
 
-        <Button style={styles.buttonWidth} variant={Variant.secondary}>
+        <Button width={300} variant={Variant.secondary}>
           <Text>View your lists</Text>
         </Button>
       </View>
@@ -60,13 +60,9 @@ export const Home: React.FC = () => {
 
 const styles = StyleSheet.create({
   title: {
-    // flex: 1,
     textAlign: 'center',
     fontSize: 30,
     color: colors.lightBlack,
-  },
-  buttonWidth: {
-    width: 300,
   },
   buttonView: {
     justifyContent: 'space-between',

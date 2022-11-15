@@ -8,13 +8,20 @@ import {
 } from 'react-native';
 import { Variant } from '../variant';
 
-export type ButtonStyles = {
+export interface ButtonStyleProps {
   buttonStyle: StyleProp<ViewStyle> & StyleProp<FlexStyle>;
   buttonTextStyle: StyleProp<TextStyle>;
+}
+
+export type ButtonStyles = {
+  primary?: ButtonStyleProps;
+  secondary?: ButtonStyleProps;
 };
 
 export type ButtonStylesContext = {
   variant?: Variant;
+  disabled?: boolean;
+  width?: number;
 };
 
 export interface ButtonProps
@@ -22,4 +29,6 @@ export interface ButtonProps
     JSX.IntrinsicClassAttributes<TouchableOpacity>,
     Readonly<TouchableOpacityProps> {
   variant?: Variant;
+  disabled?: boolean;
+  width?: number;
 }

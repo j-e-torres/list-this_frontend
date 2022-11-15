@@ -169,7 +169,10 @@ export const CreateListModal: React.FC = () => {
       </View>
 
       <View style={{ flex: 1 }}>
-        <Button onPress={createList} variant={Variant.primary}>
+        <Button
+          disabled={listState.listName.length < 1}
+          onPress={createList}
+          variant={Variant.primary}>
           Create List
         </Button>
       </View>

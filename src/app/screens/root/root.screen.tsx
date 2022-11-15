@@ -35,14 +35,14 @@ export const Root = () => {
       <View style={styles.buttonView}>
         <Button
           onPress={() => navigation.navigate('Login')}
-          style={styles.buttonWidth}
+          width={300}
           variant={Variant.primary}>
           Login
         </Button>
 
         <Button
           onPress={() => navigation.navigate('Signup')}
-          style={styles.buttonWidth}
+          width={300}
           variant={Variant.secondary}>
           Sign up
         </Button>
@@ -65,8 +65,5 @@ const styles = StyleSheet.create({
     marginTop: 36,
     alignItems: 'center',
     height: 150,
-  },
-  buttonWidth: {
-    width: 300,
   },
 });
