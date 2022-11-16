@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { getBackendUrl } from '../utils/environment/environment';
 
-import { AuthTypes, UserTypes } from '../types';
+import { AuthTypes, UserTypes, ApiResponse } from '../types';
 
 export class AuthApi {
   private backendApi: string;
@@ -34,8 +34,8 @@ export class AuthApi {
 
   userLoginToken = async (
     token: AuthTypes.Token,
-  ): Promise<AuthTypes.AuthResponse> => {
-    const res = await axios.get<AuthTypes.AuthResponse>(
+  ): Promise<ApiResponse<UserTypes.User>> => {
+    const res = await axios.get<ApiResponse<UserTypes.User>>(
       `${this.backendApi}/auth/login`,
       { headers: { authorization: token } },
     );
