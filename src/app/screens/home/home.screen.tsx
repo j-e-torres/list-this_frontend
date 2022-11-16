@@ -1,14 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useDispatch, useSelector, shallowEqual } from 'react-redux';
-import { selectAuthUser } from '../../../stores/auth/selectors/auth.selectors';
 
-import {
-  useInjectReducer,
-  useInjectSaga,
-} from '../../../utils/redux-injectors.ts';
+import { useInjectReducer } from '../../../utils/redux-injectors.ts';
 
 import { sliceKey, reducer } from '../../../stores/auth/slice/auth.slice';
 import { AuthFacadeService } from '../../../stores/auth/facades/auth.facade';
@@ -16,19 +11,15 @@ import { AuthFacadeService } from '../../../stores/auth/facades/auth.facade';
 import { colors } from '../../../styles';
 import { ScreenWrapper } from '../../components/screen-wrapper/screen-wrapper';
 import { Button } from '../../components/button/button';
-import { Variant } from '../../../types';
-
-import {
-  RootStackParamList,
-  ModalStackParams,
-} from '../../../types/navigation';
-import { UserTypes } from '../../../types';
+import { Variant, NavigationTypes } from '../../../types';
 
 export const Home: React.FC = () => {
   useInjectReducer({ key: sliceKey, reducer: reducer });
 
   const modalNavigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamList, 'Modals'>>();
+    useNavigation<
+      NativeStackNavigationProp<NavigationTypes.RootStackParamList, 'Modals'>
+    >();
 
   const { authUser } = AuthFacadeService();
 
@@ -50,7 +41,14 @@ export const Home: React.FC = () => {
           <Text>Start a List</Text>
         </Button>
 
-        <Button width={300} variant={Variant.secondary}>
+        <Button
+          onPress={() =>
+            modalNavigation.navigate('AuthStack', {
+              screen: 'ViewLists',
+            })
+          }
+          width={300}
+          variant={Variant.secondary}>
           <Text>View your lists</Text>
         </Button>
       </View>

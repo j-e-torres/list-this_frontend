@@ -7,6 +7,7 @@ import { Login } from '../screens/login/login.screen';
 import { Signup } from '../screens/signup/signup.screen';
 import { Root } from '../screens/root/root.screen';
 import { Home } from '../screens/home/home.screen';
+import { ViewLists } from '../screens/view-lists/view-lists.screen';
 
 import { CreateListModal } from '../modals/create-list-modal/create-list.modal';
 
@@ -66,6 +67,7 @@ const AuthScreenStack = () => {
     <AuthStack.Navigator initialRouteName="Home">
       <AuthStack.Group>
         <AuthStack.Screen name="Home" component={Home} />
+        <AuthStack.Screen name="ViewLists" component={ViewLists} />
       </AuthStack.Group>
     </AuthStack.Navigator>
   );

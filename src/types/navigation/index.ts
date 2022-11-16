@@ -14,6 +14,7 @@ export type UnauthorizedStackParams = {
 
 export type AuthStackParams = {
   Home: undefined;
+  ViewLists: undefined;
 };
 
 export type ModalStackParams = {
