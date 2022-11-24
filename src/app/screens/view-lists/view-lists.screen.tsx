@@ -12,8 +12,7 @@ import Icon from 'react-native-vector-icons/Entypo';
 
 import { colors } from '../../../styles';
 import { ScreenWrapper } from '../../components/screen-wrapper/screen-wrapper';
-import { Button } from '../../components/button/button';
-import { Variant, NavigationTypes, ListTypes } from '../../../types';
+import { NavigationTypes, ListTypes } from '../../../types';
 import {
   useInjectReducer,
   useInjectSaga,
@@ -41,24 +40,25 @@ export const ViewLists: React.FC = () => {
   const { authUser } = AuthFacadeService();
 
   useEffect(() => {
-    async function sendPayload() {
-      if (authUser) {
-        const payload: ListTypes.FetchListsPayload = {
-          userId: authUser.id,
-          token: await getStoredToken(),
-        };
-        fetchLists(payload);
-      }
-    }
-
-    sendPayload();
+    fetchUserLists();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authUser]);
+
+  const fetchUserLists = async () => {
+    if (authUser) {
+      const payload: ListTypes.FetchListsPayload = {
+        userId: authUser.id,
+        token: await getStoredToken(),
+      };
+      fetchLists(payload);
+    }
+  };
 
   return (
     <ScreenWrapper>
       <View style={styles.iconHeader}>
         <TouchableOpacity
+          onPress={fetchUserLists}
           style={{
             flex: 1,
             justifyContent: 'center',

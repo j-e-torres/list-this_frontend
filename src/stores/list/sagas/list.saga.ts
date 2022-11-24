@@ -1,11 +1,4 @@
-import {
-  takeEvery,
-  put,
-  call,
-  select,
-  take,
-  PutEffect,
-} from 'redux-saga/effects';
+import { takeEvery, put, call, select } from 'redux-saga/effects';
 import axios, { AxiosError } from 'axios';
 
 import { actions } from '../slice/list.slice';
@@ -14,8 +7,7 @@ import {
   selectCreateListPayload,
   selectFetchListsPayload,
 } from '../selectors/list.selectors';
-import { ErrorTypes, ApiResponse, ListTypes, AuthTypes } from '../../../types';
-import { getStoredToken } from '../../../utils/async-storage';
+import { ErrorTypes, ApiResponse, ListTypes } from '../../../types';
 
 function* createList() {
   const payload: ListTypes.CreateListPayload = yield select(
