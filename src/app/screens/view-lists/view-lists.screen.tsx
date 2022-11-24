@@ -13,8 +13,19 @@ import Icon from 'react-native-vector-icons/Entypo';
 import { colors } from '../../../styles';
 import { ScreenWrapper } from '../../components/screen-wrapper/screen-wrapper';
 import { Button } from '../../components/button/button';
-import { Variant, NavigationTypes } from '../../../types';
+import { Variant, NavigationTypes, ListTypes } from '../../../types';
+import {
+  useInjectReducer,
+  useInjectSaga,
+} from '../../../utils/redux-injectors.ts';
 
+import { sliceKey, reducer } from '../../../stores/list/slice/list.slice';
+import { fetchListsSaga } from '../../../stores/list/sagas/list.saga';
+import { ListFacadeService } from '../../../stores/list/facades/list.facade';
+import { AuthFacadeService } from '../../../stores/auth/facades/auth.facade';
+import { getStoredToken } from '../../../utils/async-storage';
+
+// move to utils
 export const stickyNotesTiltDegrees = () => {
   const randomInt = Math.floor(Math.random() * Math.floor(14)) - 6;
 
@@ -23,6 +34,27 @@ export const stickyNotesTiltDegrees = () => {
 };
 
 export const ViewLists: React.FC = () => {
+  useInjectReducer({ key: sliceKey, reducer: reducer });
+  useInjectSaga({ key: sliceKey, saga: fetchListsSaga });
+
+  const { fetchLists, lists } = ListFacadeService();
+  const { authUser } = AuthFacadeService();
+
+  useEffect(() => {
+    async function sendPayload() {
+      if (authUser) {
+        const payload: ListTypes.FetchListsPayload = {
+          userId: authUser.id,
+          token: await getStoredToken(),
+        };
+        fetchLists(payload);
+      }
+    }
+
+    sendPayload();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authUser]);
+
   return (
     <ScreenWrapper>
       <View style={styles.iconHeader}>
@@ -51,7 +83,7 @@ export const ViewLists: React.FC = () => {
 
         <View style={{ flex: 6 }}>
           <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-            <View style={styles.panelsContainerLayout}>
+            {/* <View style={styles.panelsContainerLayout}>
               <TouchableOpacity
                 // onPress={() => navigation.navigate('ListItems', list)}
                 style={panelStyle().panel}
@@ -69,14 +101,14 @@ export const ViewLists: React.FC = () => {
                   <Text style={styles.listItemsEnd}>list continued...</Text>
                 </View>
               </TouchableOpacity>
-            </View>
+            </View> */}
 
-            {/* {userLists.length > 0 && (
+            {lists && lists.length > 0 && (
               <View style={styles.panelsContainerLayout}>
-                {userLists.map((list, idx) => {
+                {lists.map((list, idx) => {
                   return (
                     <TouchableOpacity
-                      onPress={() => navigation.navigate('ListItems', list)}
+                      // onPress={() => navigation.navigate('ListItems', list)}
                       style={panelStyle().panel}
                       key={idx}>
                       <Text style={styles.title} numberOfLines={1}>
@@ -108,7 +140,7 @@ export const ViewLists: React.FC = () => {
                   );
                 })}
               </View>
-            )} */}
+            )}
           </ScrollView>
         </View>
       </View>

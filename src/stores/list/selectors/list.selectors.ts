@@ -22,3 +22,13 @@ export const selectListError = createSelector(
   [selectDomain],
   (state) => state.error,
 );
+
+export const selectLists = createSelector(
+  [selectDomain],
+  (state) => state.lists,
+);
+
+export const selectFetchListsPayload = createSelector(
+  [selectDomain],
+  (state) => state.fetchListsPayload,
+);

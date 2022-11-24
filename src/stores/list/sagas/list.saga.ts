@@ -10,7 +10,10 @@ import axios, { AxiosError } from 'axios';
 
 import { actions } from '../slice/list.slice';
 import { listApi } from '../../../api/list.api';
-import { selectCreateListPayload } from '../selectors/list.selectors';
+import {
+  selectCreateListPayload,
+  selectFetchListsPayload,
+} from '../selectors/list.selectors';
 import { ErrorTypes, ApiResponse, ListTypes, AuthTypes } from '../../../types';
 import { getStoredToken } from '../../../utils/async-storage';
 
@@ -18,8 +21,6 @@ function* createList() {
   const payload: ListTypes.CreateListPayload = yield select(
     selectCreateListPayload,
   );
-
-  // const token: string | null = await getStoredToken();
 
   try {
     const createListResponse: ApiResponse<ListTypes.List> = yield call(
@@ -39,6 +40,33 @@ function* createList() {
   }
 }
 
+function* fetchLists() {
+  const payload: ListTypes.FetchListsPayload = yield select(
+    selectFetchListsPayload,
+  );
+
+  try {
+    const listsResponse: ApiResponse<ListTypes.List[]> = yield call(
+      listApi.fetchLists,
+      payload,
+    );
+
+    yield put(actions.fetchListsSuccess(listsResponse.data.lists));
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const _error = error as AxiosError<ErrorTypes.ApiErrorResponse>;
+      yield put(actions.fetchListsFailure(_error.response?.data));
+    } else {
+      const _error = new Error(ErrorTypes.GeneralErrors.GENERAL_ERROR);
+      yield put(actions.fetchListsFailure(_error));
+    }
+  }
+}
+
 export function* createListSaga() {
   yield takeEvery(actions.createList.type, createList);
+}
+
+export function* fetchListsSaga() {
+  yield takeEvery(actions.fetchLists.type, fetchLists);
 }

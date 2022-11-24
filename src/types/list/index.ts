@@ -14,3 +14,8 @@ export interface CreateListPayload {
   tasks: { taskName: string }[];
   token: string | null;
 }
+
+export interface FetchListsPayload {
+  userId: string;
+  token: string | null;
+}

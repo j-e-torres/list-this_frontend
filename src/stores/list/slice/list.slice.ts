@@ -6,6 +6,8 @@ export interface ListState {
   error: ErrorTypes.AllErrors | null;
   createListPayload: ListTypes.CreateListPayload | null;
   list: ListTypes.List | null;
+  lists: ListTypes.List[] | null;
+  fetchListsPayload: ListTypes.FetchListsPayload | null;
 }
 
 export const initialState: ListState = {
@@ -13,6 +15,8 @@ export const initialState: ListState = {
   error: null,
   createListPayload: null,
   list: null,
+  lists: null,
+  fetchListsPayload: null,
 };
 
 const listSlice = createSlice({
@@ -38,6 +42,23 @@ const listSlice = createSlice({
     },
     clearList(state, action: PayloadAction<null>) {
       state.list = null;
+    },
+    fetchLists(state, action: PayloadAction<ListTypes.FetchListsPayload>) {
+      state.loading = true;
+      state.error = null;
+      state.fetchListsPayload = action.payload;
+    },
+    fetchListsSuccess(state, action: PayloadAction<ListTypes.List[]>) {
+      state.loading = false;
+      state.error = null;
+      state.fetchListsPayload = null;
+      state.lists = action.payload;
+    },
+    fetchListsFailure(state, action: PayloadAction<ErrorTypes.AllErrors>) {
+      state.loading = false;
+      state.error = action.payload;
+      state.fetchListsPayload = null;
+      state.lists = null;
     },
   },
 });
