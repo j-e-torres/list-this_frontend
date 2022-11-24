@@ -83,26 +83,6 @@ export const ViewLists: React.FC = () => {
 
         <View style={{ flex: 6 }}>
           <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-            {/* <View style={styles.panelsContainerLayout}>
-              <TouchableOpacity
-                // onPress={() => navigation.navigate('ListItems', list)}
-                style={panelStyle().panel}
-                // key={idx}
-              >
-                <Text style={styles.title} numberOfLines={1}>
-                  LISTNAME
-                </Text>
-
-                <View>
-                  <Text style={styles.listItems}>TASK NAME 1</Text>
-
-                  <Text style={styles.listItems}>TASK NAME 2</Text>
-
-                  <Text style={styles.listItemsEnd}>list continued...</Text>
-                </View>
-              </TouchableOpacity>
-            </View> */}
-
             {lists && lists.length > 0 && (
               <View style={styles.panelsContainerLayout}>
                 {lists.map((list, idx) => {
@@ -172,8 +152,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     alignContent: 'center',
     alignItems: 'center',
-    // paddingBottom: '2%',
-    marginBottom: '2%',
+    marginBottom: 8,
     flex: 1,
   },
   panelContainer: {
