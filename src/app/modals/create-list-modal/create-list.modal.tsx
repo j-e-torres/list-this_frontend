@@ -55,7 +55,7 @@ export const CreateListModal: React.FC = () => {
       setListState({ ...listState, success: 'Successfully created.' });
       setTimeout(() => {
         authNavigation.navigate('AuthStack', {
-          screen: 'Home',
+          screen: 'ViewLists',
         });
       }, 750);
     }
@@ -98,11 +98,6 @@ export const CreateListModal: React.FC = () => {
 
   return (
     <ScreenWrapper>
-      {/* <KeyboardAvoidingView behavior="padding"> */}
-      {/* <ScrollView
-        keyboardShouldPersistTaps="always"
-        contentContainerStyle={{ flexGrow: 1 }}> */}
-
       {listState.success.length > 0 && (
         <View>
           <Text style={styles.success}>{listState.success}</Text>
@@ -176,8 +171,6 @@ export const CreateListModal: React.FC = () => {
           Create List
         </Button>
       </View>
-      {/* </KeyboardAvoidingView> */}
-      {/* </ScrollView> */}
     </ScreenWrapper>
   );
 };

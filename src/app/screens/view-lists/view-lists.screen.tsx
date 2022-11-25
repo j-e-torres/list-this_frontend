@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {
   Text,
   View,
@@ -39,6 +39,11 @@ export const ViewLists: React.FC = () => {
   const { fetchLists, lists } = ListFacadeService();
   const { authUser } = AuthFacadeService();
 
+  const navigation =
+    useNavigation<
+      NativeStackNavigationProp<NavigationTypes.RootStackParamList, 'AuthStack'>
+    >();
+
   useEffect(() => {
     fetchUserLists();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -68,6 +73,11 @@ export const ViewLists: React.FC = () => {
           <Text style={{ color: colors.lightBlack }}>Refresh</Text>
         </TouchableOpacity>
         <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('Modals', {
+              screen: 'CreateListModal',
+            })
+          }
           style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <Icon name="add-to-list" size={40} color={colors.lightBlack} />
           <Text style={{ color: colors.lightBlack }}>New List</Text>
@@ -167,6 +177,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     backgroundColor: colors.lightBrown,
     padding: 8,
+    overflow: 'hidden',
   },
   panelsContainerLayout: {
     flex: 1,

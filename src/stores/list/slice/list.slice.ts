@@ -6,7 +6,7 @@ export interface ListState {
   error: ErrorTypes.AllErrors | null;
   createListPayload: ListTypes.CreateListPayload | null;
   list: ListTypes.List | null;
-  lists: ListTypes.List[] | null;
+  lists: ListTypes.List[];
   fetchListsPayload: ListTypes.FetchListsPayload | null;
 }
 
@@ -15,7 +15,7 @@ export const initialState: ListState = {
   error: null,
   createListPayload: null,
   list: null,
-  lists: null,
+  lists: [],
   fetchListsPayload: null,
 };
 
@@ -33,6 +33,7 @@ const listSlice = createSlice({
       state.error = null;
       state.createListPayload = null;
       state.list = action.payload;
+      state.lists = [...state.lists, action.payload];
     },
     createListFailure(state, action: PayloadAction<ErrorTypes.AllErrors>) {
       state.loading = false;
@@ -58,7 +59,7 @@ const listSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
       state.fetchListsPayload = null;
-      state.lists = null;
+      state.lists = [];
     },
   },
 });
