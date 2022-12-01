@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { AuthTypes, UserTypes, ErrorTypes, ListTypes } from '../../../types';
+import { ErrorTypes, ListTypes } from '../../../types';
 
 export interface ListState {
   loading: boolean;

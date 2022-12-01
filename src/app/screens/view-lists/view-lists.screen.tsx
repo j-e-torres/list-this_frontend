@@ -28,7 +28,6 @@ import { getStoredToken } from '../../../utils/async-storage';
 export const stickyNotesTiltDegrees = () => {
   const randomInt = Math.floor(Math.random() * Math.floor(14)) - 6;
 
-  // return `${randomInt}deg`;
   return [{ rotate: `${randomInt}deg` }];
 };
 
@@ -98,7 +97,12 @@ export const ViewLists: React.FC = () => {
                 {lists.map((list, idx) => {
                   return (
                     <TouchableOpacity
-                      // onPress={() => navigation.navigate('ListItems', list)}
+                      onPress={() =>
+                        navigation.navigate('AuthStack', {
+                          screen: 'ViewList',
+                          params: { list },
+                        })
+                      }
                       style={panelStyle().panel}
                       key={idx}>
                       <Text style={styles.title} numberOfLines={1}>
