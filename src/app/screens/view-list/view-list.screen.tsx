@@ -23,6 +23,12 @@ export const ViewList: React.FC<
   NativeStackScreenProps<NavigationTypes.AuthStackParams, 'ViewList'>
 > = (props) => {
   console.log('AAAAAAAA', props.route.params.list);
+  const { list } = props.route.params;
+
+  const sortByCompleted = [...list.tasks].sort((a, b) =>
+    a.completed > b.completed ? 1 : -1,
+  );
+
   return (
     <ScreenWrapper>
       {/* <ScrollView
@@ -98,82 +104,56 @@ export const ViewList: React.FC<
         </View>
 
         <View style={{ flex: 3 }}>
-          {/* {sortByCompleted.length > 0 ? (
-              <ScrollView
-                nestedScrollEnabled={true}
-                style={{ height: 200 }}
-                contentContainerStyle={{ flexGrow: 1 }}>
-                {sortByCompleted.map((task, idx) => {
-                  return (
-                    <View key={idx} style={styles.itemLine}>
-                      <Text style={completed(task.completed).task}>
-                        {task.taskName}
-                      </Text>
+          {sortByCompleted.length > 0 ? (
+            <ScrollView
+              nestedScrollEnabled={true}
+              style={{ height: 200 }}
+              contentContainerStyle={{ flexGrow: 1 }}>
+              {sortByCompleted.map((task, idx) => {
+                return (
+                  <View key={idx} style={styles.itemLine}>
+                    <Text style={completedTaskStyle(task.completed).task}>
+                      {task.taskName}
+                    </Text>
 
-                      {task.completed === true ? (
-                        <Text style={completed(task.completed).taskOwner} />
-                      ) : (
-                        <View style={styles.iconContainer}>
-                          <TouchableOpacity
-                            onPress={() => _completeTask(task)}
-                            style={completed(task.completed).taskOwner}>
-                            <Text>
-                              <Icon
-                                name="circle"
-                                size={20}
-                                color={colors.lightBlack}
-                              />
-                            </Text>
-                          </TouchableOpacity>
+                    {task.completed === true ? (
+                      <Text
+                        style={completedTaskStyle(task.completed).taskOwner}
+                      />
+                    ) : (
+                      <View style={styles.iconContainer}>
+                        <TouchableOpacity
+                          // onPress={() => _completeTask(task)}
+                          style={completedTaskStyle(task.completed).taskOwner}>
+                          <Text>
+                            <Icon
+                              name="circle"
+                              size={20}
+                              color={colors.lightBlack}
+                            />
+                          </Text>
+                        </TouchableOpacity>
 
-                          <TouchableOpacity
-                            onPress={() => _deleteTask(task)}
-                            style={completed(task.completed).taskOwner}>
-                            <Text>
-                              <Icon
-                                name="cross"
-                                size={20}
-                                color={colors.lightBlack}
-                              />
-                            </Text>
-                          </TouchableOpacity>
-                        </View>
-                      )}
-                    </View>
-                  );
-                })}
-              </ScrollView>
-            ) : (
-              <Text style={styles.noTasks}>No tasks created yet</Text>
-            )} */}
-          {/* <Text style={styles.noTasks}>No tasks created yet</Text> */}
-          <View style={styles.itemLine}>
-            <Text
-            // style={completed(task.completed).task}
-            >
-              TASSSSSSK
-            </Text>
-
-            <View style={styles.iconContainer}>
-              <TouchableOpacity
-              // onPress={() => _completeTask(task)}
-              // style={completed(task.completed).taskOwner}
-              >
-                <Text>
-                  <Icon name="circle" size={20} color={colors.lightBlack} />
-                </Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-              // onPress={() => _deleteTask(task)}
-              // style={completed(task.completed).taskOwner}
-              >
-                <Text>
-                  <Icon name="cross" size={20} color={colors.lightBlack} />
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+                        <TouchableOpacity
+                          // onPress={() => _deleteTask(task)}
+                          style={completedTaskStyle(task.completed).taskOwner}>
+                          <Text>
+                            <Icon
+                              name="cross"
+                              size={20}
+                              color={colors.lightBlack}
+                            />
+                          </Text>
+                        </TouchableOpacity>
+                      </View>
+                    )}
+                  </View>
+                );
+              })}
+            </ScrollView>
+          ) : (
+            <Text style={styles.noTasks}>No tasks created yet</Text>
+          )}
         </View>
       </View>
 
@@ -222,6 +202,21 @@ export const ViewList: React.FC<
     </ScreenWrapper>
   );
 };
+
+const completedTaskStyle = (bool: boolean) =>
+  StyleSheet.create({
+    task: {
+      flex: 3,
+      fontSize: 18,
+      color: bool === true ? colors.lightGrey : colors.lightBlack,
+      textDecorationLine: bool === true ? 'line-through' : 'none',
+    },
+    taskOwner: {
+      flex: 1,
+      fontSize: 14,
+      color: colors.lightGrey,
+    },
+  });
 
 const styles = StyleSheet.create({
   iconContainer: {
