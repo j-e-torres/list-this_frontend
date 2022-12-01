@@ -31,44 +31,39 @@ export const ViewList: React.FC<
 
   return (
     <ScreenWrapper>
-      {/* <ScrollView
-        keyboardShouldPersistTaps="always"
-        contentContainerStyle={{ flexGrow: 1 }}
-        > */}
       <View style={{ flex: 4 }}>
         <View style={{ flex: 1 }}>
-          <View style={{ flex: 1 }}>
-            <View style={styles.iconHeader}>
-              <TouchableOpacity
-                style={{
-                  flex: 1,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-                // onPress={
-                //   () => fetchTasks()
-                //   // .then(() => navigation.navi)
-                // }
-              >
-                <Icon name="ccw" size={40} color={colors.lightBlack} />
-                <Text style={{ color: colors.lightBlack }}>Refresh</Text>
-              </TouchableOpacity>
+          <View style={styles.iconHeader}>
+            <TouchableOpacity
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+              // onPress={
+              //   () => fetchTasks()
+              //   // .then(() => navigation.navi)
+              // }
+            >
+              <Icon name="ccw" size={40} color={colors.lightBlack} />
+              <Text style={{ color: colors.lightBlack }}>Refresh</Text>
+            </TouchableOpacity>
 
-              <TouchableOpacity
-                style={{
-                  flex: 1,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-                // onPress={() =>
-                //   navigation.navigate('CreateTaskModal', { id })
-                // }
-              >
-                <Icon name="add-to-list" size={40} color={colors.lightBlack} />
-                <Text style={{ color: colors.lightBlack }}>Add</Text>
-              </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+              // onPress={() =>
+              //   navigation.navigate('CreateTaskModal', { id })
+              // }
+            >
+              <Icon name="add-to-list" size={40} color={colors.lightBlack} />
+              <Text style={{ color: colors.lightBlack }}>Add</Text>
+            </TouchableOpacity>
 
-              {/* {userLogin.username === listOwner && (
+            {/* {userLogin.username === listOwner && (
                   <TouchableOpacity
                     style={{
                       flex: 1,
@@ -88,27 +83,27 @@ export const ViewList: React.FC<
                   </TouchableOpacity>
                 )} */}
 
-              <TouchableOpacity
-                style={{
-                  flex: 1,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-                // onPress={() => navigation.navigate('ViewUsersModal', { id })}
-              >
-                <Icon name="users" size={40} color={colors.lightBlack} />
-                <Text style={{ color: colors.lightBlack }}>View Users</Text>
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+              // onPress={() => navigation.navigate('ViewUsersModal', { id })}
+            >
+              <Icon name="users" size={40} color={colors.lightBlack} />
+              <Text style={{ color: colors.lightBlack }}>View Users</Text>
+            </TouchableOpacity>
           </View>
         </View>
 
         <View style={{ flex: 3 }}>
           {sortByCompleted.length > 0 ? (
             <ScrollView
-              nestedScrollEnabled={true}
-              style={{ height: 200 }}
-              contentContainerStyle={{ flexGrow: 1 }}>
+            // nestedScrollEnabled={true}
+            // style={{ height: 200 }}
+            // contentContainerStyle={{ flexGrow: 1 }}
+            >
               {sortByCompleted.map((task, idx) => {
                 return (
                   <View key={idx} style={styles.itemLine}>
@@ -154,6 +149,7 @@ export const ViewList: React.FC<
           ) : (
             <Text style={styles.noTasks}>No tasks created yet</Text>
           )}
+          {/* </View> */}
         </View>
       </View>
 
@@ -198,7 +194,6 @@ export const ViewList: React.FC<
           />
         </View>
       </View>
-      {/* </ScrollView> */}
     </ScreenWrapper>
   );
 };
@@ -238,7 +233,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     backgroundColor: colors.lightBrown,
     padding: 8,
-    marginHorizontal: -10,
+    // marginHorizontal: -10,
   },
 
   panelsContainerLayout: {
@@ -247,7 +242,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexWrap: 'wrap',
     flexDirection: 'row',
-    marginVertical: 10,
+    // marginVertical: 10,
   },
   itemLine: {
     paddingLeft: 5,
@@ -280,7 +275,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     alignContent: 'center',
     alignItems: 'center',
-    paddingBottom: 4,
     flex: 1,
   },
 
