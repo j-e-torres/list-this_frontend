@@ -19,3 +19,9 @@ export interface FetchListsPayload {
   userId: string;
   token: string | null;
 }
+
+export interface UpdateListPayload {
+  tasks?: { taskName: string }[];
+  token: string | null;
+  listNotes?: string;
+}

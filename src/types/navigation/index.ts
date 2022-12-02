@@ -22,4 +22,5 @@ export type AuthStackParams = {
 
 export type ModalStackParams = {
   CreateListModal: undefined;
+  CreateTaskModal: { id: string };
 };

@@ -6,6 +6,7 @@ import * as ErrorTypes from './error';
 import * as NavigationTypes from './navigation';
 
 export * from './create-list-modal';
+export * from './create-task-modal';
 export * from './variant';
 export * from './common';
 export * from './button';

@@ -11,6 +11,7 @@ import { ViewLists } from '../screens/view-lists/view-lists.screen';
 import { ViewList } from '../screens/view-list/view-list.screen';
 
 import { CreateListModal } from '../modals/create-list-modal/create-list.modal';
+import { CreateTaskModal } from '../modals/create-task-modal/create-task.modal';
 
 import { getStoredToken } from '../../utils/async-storage';
 import {
@@ -80,6 +81,7 @@ const ModalScreenStack = () => {
     <ModalStack.Navigator screenOptions={{ presentation: 'modal' }}>
       <ModalStack.Group>
         <ModalStack.Screen name="CreateListModal" component={CreateListModal} />
+        <ModalStack.Screen name="CreateTaskModal" component={CreateTaskModal} />
       </ModalStack.Group>
     </ModalStack.Navigator>
   );
@@ -136,13 +138,6 @@ const Navigation: React.FC = () => {
           />
         )}
         <RootStack.Screen name="Modals" component={ModalScreenStack} />
-
-        {/*
-          Common modal screens
-          <Stack.Group screenOptions={{presentation: 'modal'}}>
-            <Stack.Screen name="Help" component={Help} />
-            <Stack.Screen name="Invite" component={Invite} />
-          </Stack.Group> */}
       </RootStack.Navigator>
     </NavigationContainer>
   );

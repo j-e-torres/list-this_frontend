@@ -22,12 +22,16 @@ import { NavigationTypes } from '../../../types';
 export const ViewList: React.FC<
   NativeStackScreenProps<NavigationTypes.AuthStackParams, 'ViewList'>
 > = (props) => {
-  console.log('AAAAAAAA', props.route.params.list);
   const { list } = props.route.params;
 
   const sortByCompleted = [...list.tasks].sort((a, b) =>
     a.completed > b.completed ? 1 : -1,
   );
+
+  const modalNavigation =
+    useNavigation<
+      NativeStackNavigationProp<NavigationTypes.RootStackParamList>
+    >();
 
   return (
     <ScreenWrapper>
@@ -55,10 +59,12 @@ export const ViewList: React.FC<
                 justifyContent: 'center',
                 alignItems: 'center',
               }}
-              // onPress={() =>
-              //   navigation.navigate('CreateTaskModal', { id })
-              // }
-            >
+              onPress={() =>
+                modalNavigation.navigate('Modals', {
+                  screen: 'CreateTaskModal',
+                  params: { id: list.id },
+                })
+              }>
               <Icon name="add-to-list" size={40} color={colors.lightBlack} />
               <Text style={{ color: colors.lightBlack }}>Add</Text>
             </TouchableOpacity>
@@ -123,7 +129,7 @@ export const ViewList: React.FC<
                           <Text>
                             <Icon
                               name="circle"
-                              size={20}
+                              size={16}
                               color={colors.lightBlack}
                             />
                           </Text>
@@ -217,6 +223,7 @@ const styles = StyleSheet.create({
   iconContainer: {
     flexDirection: 'row',
     flex: 1,
+    alignItems: 'center',
   },
   panelContainer: {
     flex: 1,
