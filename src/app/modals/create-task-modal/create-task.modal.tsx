@@ -48,7 +48,7 @@ export const CreateTaskModal: React.FC<
     tasks: [],
   });
 
-  const { updateListDispatch } = ListFacadeService();
+  const { updateList } = ListFacadeService();
   const { authUser } = AuthFacadeService();
 
   const { tasks, taskName, error, success } = taskModalState;
@@ -71,20 +71,10 @@ export const CreateTaskModal: React.FC<
     const buildPayload: ListTypes.UpdateListPayload = {
       tasks,
       token: await getStoredToken(),
+      listId: id,
     };
 
-    updateListDispatch(buildPayload);
-    // return createTasks(id, tasks)
-    //   .then(() => this.setState({success: 'Successfully added. '}))
-    //   .then(() =>
-    //     setTimeout(function() {
-    //       navigation.goBack();
-    //     }, 250),
-    //   )
-    //   .catch(e => {
-    //     console.log('createTask, error', e);
-    //     this.setState({error: e.response.data.errors});
-    //   });
+    updateList(buildPayload);
   };
 
   return (

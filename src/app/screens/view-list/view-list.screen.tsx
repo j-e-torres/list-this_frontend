@@ -33,6 +33,8 @@ export const ViewList: React.FC<
       NativeStackNavigationProp<NavigationTypes.RootStackParamList>
     >();
 
+  console.log('FWFOFIQEJFIOQEJFIEQ');
+
   return (
     <ScreenWrapper>
       <View style={{ flex: 4 }}>

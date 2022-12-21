@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { ErrorTypes, ListTypes } from '../../../types';
+import { ErrorTypes, ListTypes, TaskTypes } from '../../../types';
 
 export interface ListState {
   loading: boolean;
@@ -8,6 +8,7 @@ export interface ListState {
   list: ListTypes.List | null;
   lists: ListTypes.List[];
   fetchListsPayload: ListTypes.FetchListsPayload | null;
+  updateListPayload: ListTypes.UpdateListPayload | null;
 }
 
 export const initialState: ListState = {
@@ -17,6 +18,7 @@ export const initialState: ListState = {
   list: null,
   lists: [],
   fetchListsPayload: null,
+  updateListPayload: null,
 };
 
 const listSlice = createSlice({
@@ -60,6 +62,22 @@ const listSlice = createSlice({
       state.error = action.payload;
       state.fetchListsPayload = null;
       state.lists = [];
+    },
+    updateList(state, action: PayloadAction<ListTypes.UpdateListPayload>) {
+      state.loading = true;
+      state.error = null;
+      state.updateListPayload = action.payload;
+    },
+    updateListSuccess(state, action: PayloadAction<TaskTypes.Task[]>) {
+      state.loading = false;
+      state.error = null;
+      state.lists = [...state.lists];
+      state.updateListPayload = null;
+    },
+    updateListFailure(state, action: PayloadAction<ErrorTypes.AllErrors>) {
+      state.loading = false;
+      state.error = action.payload;
+      state.updateListPayload = null;
     },
   },
 });

@@ -6,8 +6,9 @@ import { listApi } from '../../../api/list.api';
 import {
   selectCreateListPayload,
   selectFetchListsPayload,
+  selectUpdateListPayload,
 } from '../selectors/list.selectors';
-import { ErrorTypes, ApiResponse, ListTypes } from '../../../types';
+import { ErrorTypes, ApiResponse, ListTypes, TaskTypes } from '../../../types';
 
 function* createList() {
   const payload: ListTypes.CreateListPayload = yield select(
@@ -55,10 +56,24 @@ function* fetchLists() {
   }
 }
 
+function* updateList() {
+  const payload: ListTypes.UpdateListPayload = yield select(
+    selectUpdateListPayload,
+  );
+
+  // try {
+  //   const response: ApiResponse<TaskTypes.Task[]> = yield call();
+  // } catch (error) {}
+}
+
 export function* createListSaga() {
   yield takeEvery(actions.createList.type, createList);
 }
 
 export function* fetchListsSaga() {
   yield takeEvery(actions.fetchLists.type, fetchLists);
+}
+
+export function* updateListSaga() {
+  yield takeEvery(actions.updateList.type, updateList);
 }

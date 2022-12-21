@@ -24,4 +24,5 @@ export interface UpdateListPayload {
   tasks?: { taskName: string }[];
   token: string | null;
   listNotes?: string;
+  listId: string;
 }

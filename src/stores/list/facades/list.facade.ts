@@ -30,10 +30,15 @@ export const ListFacadeService = () => {
     dispatch(actions.fetchLists(fetchListsPayload));
   };
 
+  const updateList = (updateListPayload: ListTypes.UpdateListPayload) => {
+    dispatch(actions.updateList(updateListPayload));
+  };
+
   return {
     createListDispatch,
     clearList,
     fetchLists,
+    updateList,
     list,
     listError,
     listLoading,
