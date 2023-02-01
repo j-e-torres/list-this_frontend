@@ -3,7 +3,6 @@ import axios from 'axios';
 import { getBackendUrl } from '../utils/environment/environment';
 
 import { ListTypes, ApiResponse, AuthTypes } from '../types';
-import { FetchListsPayload } from '../types/list';
 
 export class ListApi {
   private backendApi: string;
@@ -29,7 +28,7 @@ export class ListApi {
   };
 
   fetchLists = async (
-    payload: FetchListsPayload,
+    payload: ListTypes.FetchListsPayload,
   ): Promise<ApiResponse<ListTypes.List[]>> => {
     const res = await axios.get<ApiResponse<ListTypes.List[]>>(
       `${this.backendApi}/users/${payload.userId}/lists`,
@@ -39,6 +38,21 @@ export class ListApi {
         },
       },
     );
+    return res.data;
+  };
+
+  fetchList = async (
+    payload: ListTypes.FetchListPayload,
+  ): Promise<ApiResponse<ListTypes.List>> => {
+    const res = await axios.get<ApiResponse<ListTypes.List>>(
+      `${this.backendApi}/lists/${payload.listId}`,
+      {
+        headers: {
+          authorization: `Bearer ${payload.token}`,
+        },
+      },
+    );
+
     return res.data;
   };
 }

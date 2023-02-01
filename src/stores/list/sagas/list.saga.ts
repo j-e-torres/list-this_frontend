@@ -5,6 +5,7 @@ import { actions } from '../slice/list.slice';
 import { listApi } from '../../../api/list.api';
 import {
   selectCreateListPayload,
+  selectFetchListPayload,
   selectFetchListsPayload,
   selectUpdateListPayload,
 } from '../selectors/list.selectors';
@@ -66,6 +67,29 @@ function* updateList() {
   // } catch (error) {}
 }
 
+function* fetchList() {
+  const payload: ListTypes.FetchListPayload = yield select(
+    selectFetchListPayload,
+  );
+
+  try {
+    const listResponse: ApiResponse<ListTypes.List> = yield call(
+      listApi.fetchList,
+      payload,
+    );
+
+    yield put(actions.fetchListSuccess(listResponse.data.list));
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const _error = error as AxiosError<ErrorTypes.ApiErrorResponse>;
+      yield put(actions.fetchListFailure(_error.response?.data));
+    } else {
+      const _error = new Error(ErrorTypes.GeneralErrors.GENERAL_ERROR);
+      yield put(actions.fetchListFailure(_error));
+    }
+  }
+}
+
 export function* createListSaga() {
   yield takeEvery(actions.createList.type, createList);
 }
@@ -76,4 +100,8 @@ export function* fetchListsSaga() {
 
 export function* updateListSaga() {
   yield takeEvery(actions.updateList.type, updateList);
+}
+
+export function* fetchListSaga() {
+  yield takeEvery(actions.fetchList.type, fetchList);
 }

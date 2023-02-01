@@ -26,3 +26,8 @@ export interface UpdateListPayload {
   listNotes?: string;
   listId: string;
 }
+
+export interface FetchListPayload {
+  listId: string;
+  token: string | null;
+}

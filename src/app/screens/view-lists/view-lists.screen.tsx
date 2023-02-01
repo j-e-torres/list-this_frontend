@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import {
   Text,
   View,
@@ -48,7 +48,7 @@ export const ViewLists: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authUser]);
 
-  const fetchUserLists = async () => {
+  const fetchUserLists = useCallback(async () => {
     if (authUser) {
       const payload: ListTypes.FetchListsPayload = {
         userId: authUser.id,
@@ -56,7 +56,7 @@ export const ViewLists: React.FC = () => {
       };
       fetchLists(payload);
     }
-  };
+  }, [authUser, fetchLists]);
 
   return (
     <ScreenWrapper>
@@ -72,11 +72,13 @@ export const ViewLists: React.FC = () => {
           <Text style={{ color: colors.lightBlack }}>Refresh</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('Modals', {
-              screen: 'CreateListModal',
-            })
-          }
+          onPress={useCallback(
+            () =>
+              navigation.navigate('Modals', {
+                screen: 'CreateListModal',
+              }),
+            [navigation],
+          )}
           style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <Icon name="add-to-list" size={40} color={colors.lightBlack} />
           <Text style={{ color: colors.lightBlack }}>New List</Text>
@@ -100,7 +102,7 @@ export const ViewLists: React.FC = () => {
                       onPress={() =>
                         navigation.navigate('AuthStack', {
                           screen: 'ViewList',
-                          params: { list },
+                          params: { listId: list.id },
                         })
                       }
                       style={panelStyle().panel}

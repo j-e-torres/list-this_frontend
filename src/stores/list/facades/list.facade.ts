@@ -34,6 +34,10 @@ export const ListFacadeService = () => {
     dispatch(actions.updateList(updateListPayload));
   };
 
+  const fetchList = (payload: ListTypes.FetchListPayload) => {
+    dispatch(actions.fetchList(payload));
+  };
+
   return {
     createListDispatch,
     clearList,
@@ -43,5 +47,6 @@ export const ListFacadeService = () => {
     listError,
     listLoading,
     lists,
+    fetchList,
   };
 };

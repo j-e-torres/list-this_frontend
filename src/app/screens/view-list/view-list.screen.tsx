@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useCallback } from 'react';
 import {
   Text,
   View,
@@ -16,24 +16,50 @@ import {
 import Icon from 'react-native-vector-icons/Entypo';
 import { colors } from '../../../styles';
 import { ScreenWrapper } from '../../components/screen-wrapper/screen-wrapper';
+import {
+  useInjectReducer,
+  useInjectSaga,
+} from '../../../utils/redux-injectors.ts';
+import { sliceKey, reducer } from '../../../stores/list/slice/list.slice';
+import { fetchListsSaga } from '../../../stores/list/sagas/list.saga';
 
-import { NavigationTypes } from '../../../types';
+import { ListFacadeService } from '../../../stores/list/facades/list.facade';
+import { AuthFacadeService } from '../../../stores/auth/facades/auth.facade';
+import { getStoredToken } from '../../../utils/async-storage';
+
+import { ListTypes, NavigationTypes } from '../../../types';
 
 export const ViewList: React.FC<
   NativeStackScreenProps<NavigationTypes.AuthStackParams, 'ViewList'>
 > = (props) => {
-  const { list } = props.route.params;
+  const { listId } = props.route.params;
+  useInjectReducer({ key: sliceKey, reducer: reducer });
+  useInjectSaga({ key: sliceKey, saga: fetchListsSaga });
 
-  const sortByCompleted = [...list.tasks].sort((a, b) =>
-    a.completed > b.completed ? 1 : -1,
-  );
+  const { fetchList, list } = ListFacadeService();
+  // const { authUser } = AuthFacadeService();
+
+  useEffect(() => {
+    fetchUserList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // const sortByCompleted = [...list.tasks].sort((a, b) =>
+  //   a.completed > b.completed ? 1 : -1,
+  // );
 
   const modalNavigation =
     useNavigation<
       NativeStackNavigationProp<NavigationTypes.RootStackParamList>
     >();
 
-  console.log('FWFOFIQEJFIOQEJFIEQ');
+  const fetchUserList = useCallback(async () => {
+    const payload: ListTypes.FetchListPayload = {
+      listId,
+      token: await getStoredToken(),
+    };
+    fetchList(payload);
+  }, [listId, fetchList]);
 
   return (
     <ScreenWrapper>
@@ -61,12 +87,13 @@ export const ViewList: React.FC<
                 justifyContent: 'center',
                 alignItems: 'center',
               }}
-              onPress={() =>
-                modalNavigation.navigate('Modals', {
-                  screen: 'CreateTaskModal',
-                  params: { id: list.id },
-                })
-              }>
+              // onPress={() =>
+              //   modalNavigation.navigate('Modals', {
+              //     screen: 'CreateTaskModal',
+              //     params: { id: list.id },
+              //   })
+              // }
+            >
               <Icon name="add-to-list" size={40} color={colors.lightBlack} />
               <Text style={{ color: colors.lightBlack }}>Add</Text>
             </TouchableOpacity>
@@ -105,12 +132,9 @@ export const ViewList: React.FC<
           </View>
         </View>
 
-        <View style={{ flex: 3 }}>
+        {/* <View style={{ flex: 3 }}>
           {sortByCompleted.length > 0 ? (
             <ScrollView
-            // nestedScrollEnabled={true}
-            // style={{ height: 200 }}
-            // contentContainerStyle={{ flexGrow: 1 }}
             >
               {sortByCompleted.map((task, idx) => {
                 return (
@@ -157,8 +181,8 @@ export const ViewList: React.FC<
           ) : (
             <Text style={styles.noTasks}>No tasks created yet</Text>
           )}
-          {/* </View> */}
-        </View>
+
+        </View> */}
       </View>
 
       <View style={styles.footer}>
