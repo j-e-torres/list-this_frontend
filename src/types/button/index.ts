@@ -32,3 +32,11 @@ export interface ButtonProps
   disabled?: boolean;
   width?: number;
 }
+
+export interface ButtonIconProps {
+  iconName: string;
+  iconSize: number;
+  color: string;
+  buttonText: string;
+  onPressFunction: () => void;
+}

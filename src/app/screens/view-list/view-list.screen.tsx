@@ -29,6 +29,8 @@ import { getStoredToken } from '../../../utils/async-storage';
 
 import { ListTypes, NavigationTypes } from '../../../types';
 
+import { ViewListHeader } from './components/view-list-header';
+
 export const ViewList: React.FC<
   NativeStackScreenProps<NavigationTypes.AuthStackParams, 'ViewList'>
 > = (props) => {
@@ -59,75 +61,7 @@ export const ViewList: React.FC<
     <ScreenWrapper>
       <View style={{ flex: 4 }}>
         <View style={{ flex: 1 }}>
-          <View style={styles.iconHeader}>
-            <TouchableOpacity
-              style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-              // onPress={
-              //   () => fetchTasks()
-              //   // .then(() => navigation.navi)
-              // }
-            >
-              <Icon name="ccw" size={40} color={colors.lightBlack} />
-              <Text style={{ color: colors.lightBlack }}>Refresh</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-              // onPress={() =>
-              //   modalNavigation.navigate('Modals', {
-              //     screen: 'CreateTaskModal',
-              //     params: { id: list.id },
-              //   })
-              // }
-            >
-              <Icon name="add-to-list" size={40} color={colors.lightBlack} />
-              <Text style={{ color: colors.lightBlack }}>Add</Text>
-            </TouchableOpacity>
-
-            {/* {userLogin.username === listOwner && (
-                  <TouchableOpacity
-                    style={{
-                      flex: 1,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}
-                    onPress={() =>
-                      navigation.navigate('ListAddUserModal', {
-                        listId: id,
-                        userId: userLogin.id,
-                        users: users,
-                      })
-                    }
-                    >
-                    <Icon name="add-user" size={40} color={colors.lightBlack} />
-                    <Text style={{ color: colors.lightBlack }}>Add User</Text>
-                  </TouchableOpacity>
-                )} */}
-
-            <TouchableOpacity
-              style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-              // onPress={() => navigation.navigate('ViewUsersModal', { id })}
-            >
-              <Icon name="users" size={40} color={colors.lightBlack} />
-              <Text style={{ color: colors.lightBlack }}>View Users</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        <View>
-          <Text>{list?.listName}</Text>
+          <ViewListHeader />
         </View>
 
         <View style={{ flex: 3 }}>
@@ -296,16 +230,6 @@ const styles = StyleSheet.create({
   },
 
   buttonText: { color: colors.lightOrange, fontSize: 25 },
-
-  iconHeader: {
-    borderBottomColor: colors.lightBlack,
-    borderBottomWidth: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    alignContent: 'center',
-    alignItems: 'center',
-    flex: 1,
-  },
 
   noTasks: {
     flex: 1,

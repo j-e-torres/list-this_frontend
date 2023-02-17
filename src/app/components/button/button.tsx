@@ -1,15 +1,6 @@
-import React, { Component, useState } from 'react';
-import {
-  View,
-  TextInput,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  KeyboardAvoidingView,
-  TouchableOpacityProps,
-} from 'react-native';
+import React from 'react';
+import { Text, TouchableOpacity } from 'react-native';
 
-import * as colors from '../../../styles/colors';
 import {
   ButtonProps,
   ButtonStyles,
