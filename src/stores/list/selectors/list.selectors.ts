@@ -42,3 +42,8 @@ export const selectFetchListPayload = createSelector(
   [selectDomain],
   (state) => state.fetchListPayload,
 );
+
+export const selectSortedTasks = createSelector([selectDomain], (state) => {
+  const slicedTasks = state.list?.tasks.slice();
+  return slicedTasks?.sort((a, b) => (a.completed > b.completed ? 1 : -1));
+});

@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import {
   Text,
   View,
@@ -21,7 +21,7 @@ import {
   useInjectSaga,
 } from '../../../utils/redux-injectors.ts';
 import { sliceKey, reducer } from '../../../stores/list/slice/list.slice';
-import { fetchListsSaga } from '../../../stores/list/sagas/list.saga';
+import { fetchListSaga } from '../../../stores/list/sagas/list.saga';
 
 import { ListFacadeService } from '../../../stores/list/facades/list.facade';
 import { AuthFacadeService } from '../../../stores/auth/facades/auth.facade';
@@ -34,25 +34,10 @@ export const ViewList: React.FC<
 > = (props) => {
   const { listId } = props.route.params;
   useInjectReducer({ key: sliceKey, reducer: reducer });
-  useInjectSaga({ key: sliceKey, saga: fetchListsSaga });
+  useInjectSaga({ key: sliceKey, saga: fetchListSaga });
 
-  const { fetchList, list } = ListFacadeService();
+  const { fetchList, list, sortedTasks } = ListFacadeService();
   // const { authUser } = AuthFacadeService();
-
-  useEffect(() => {
-    fetchUserList();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  // const sortByCompleted = [...list.tasks].sort((a, b) =>
-  //   a.completed > b.completed ? 1 : -1,
-  // );
-
-  const modalNavigation =
-    useNavigation<
-      NativeStackNavigationProp<NavigationTypes.RootStackParamList>
-    >();
-
   const fetchUserList = useCallback(async () => {
     const payload: ListTypes.FetchListPayload = {
       listId,
@@ -60,6 +45,15 @@ export const ViewList: React.FC<
     };
     fetchList(payload);
   }, [listId, fetchList]);
+
+  useEffect(() => {
+    fetchUserList();
+  }, []);
+
+  const modalNavigation =
+    useNavigation<
+      NativeStackNavigationProp<NavigationTypes.RootStackParamList>
+    >();
 
   return (
     <ScreenWrapper>
@@ -132,11 +126,14 @@ export const ViewList: React.FC<
           </View>
         </View>
 
-        {/* <View style={{ flex: 3 }}>
-          {sortByCompleted.length > 0 ? (
-            <ScrollView
-            >
-              {sortByCompleted.map((task, idx) => {
+        <View>
+          <Text>{list?.listName}</Text>
+        </View>
+
+        <View style={{ flex: 3 }}>
+          {sortedTasks && sortedTasks?.length > 0 ? (
+            <ScrollView>
+              {sortedTasks?.map((task, idx) => {
                 return (
                   <View key={idx} style={styles.itemLine}>
                     <Text style={completedTaskStyle(task.completed).task}>
@@ -150,7 +147,7 @@ export const ViewList: React.FC<
                     ) : (
                       <View style={styles.iconContainer}>
                         <TouchableOpacity
-                          // onPress={() => _completeTask(task)}
+                          // onPress={() => completeTask(task)}
                           style={completedTaskStyle(task.completed).taskOwner}>
                           <Text>
                             <Icon
@@ -181,8 +178,7 @@ export const ViewList: React.FC<
           ) : (
             <Text style={styles.noTasks}>No tasks created yet</Text>
           )}
-
-        </View> */}
+        </View>
       </View>
 
       <View style={styles.footer}>

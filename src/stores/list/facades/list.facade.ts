@@ -6,9 +6,10 @@ import {
   selectListError,
   selectListLoading,
   selectLists,
+  selectSortedTasks,
 } from '../selectors/list.selectors';
 import { actions } from '../slice/list.slice';
-import { ListTypes, ErrorTypes } from '../../../types';
+import { ListTypes, ErrorTypes, TaskTypes } from '../../../types';
 
 export const ListFacadeService = () => {
   const dispatch = useDispatch();
@@ -17,6 +18,8 @@ export const ListFacadeService = () => {
   const listError: ErrorTypes.AllErrors | null = useSelector(selectListError);
   const listLoading: boolean = useSelector(selectListLoading);
   const lists: ListTypes.List[] | null = useSelector(selectLists);
+  const sortedTasks: TaskTypes.Task[] | null | undefined =
+    useSelector(selectSortedTasks);
 
   const createListDispatch = (payload: ListTypes.CreateListPayload): void => {
     dispatch(actions.createList(payload));
@@ -48,5 +51,6 @@ export const ListFacadeService = () => {
     listLoading,
     lists,
     fetchList,
+    sortedTasks,
   };
 };

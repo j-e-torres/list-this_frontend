@@ -71,6 +71,7 @@ function* fetchList() {
   const payload: ListTypes.FetchListPayload = yield select(
     selectFetchListPayload,
   );
+  console.log('SAGGAAA', payload);
 
   try {
     const listResponse: ApiResponse<ListTypes.List> = yield call(
