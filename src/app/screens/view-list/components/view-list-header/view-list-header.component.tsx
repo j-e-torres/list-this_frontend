@@ -6,9 +6,9 @@ import {
   NativeStackScreenProps,
 } from '@react-navigation/native-stack';
 
-import { colors } from '../../../../styles';
+import { colors } from '../../../../../styles';
 
-import { ButtonIcon } from '../../../components/button-icon/button-icon';
+import { ButtonIcon } from '../../../../components/button-icon/button-icon';
 
 export const ViewListHeader: React.FC = (props) => {
   return (

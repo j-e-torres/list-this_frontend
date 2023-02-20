@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import {
   Text,
   View,
@@ -29,7 +29,8 @@ import { getStoredToken } from '../../../utils/async-storage';
 
 import { ListTypes, NavigationTypes } from '../../../types';
 
-import { ViewListHeader } from './components/view-list-header';
+import { ViewListHeader } from './components/view-list-header/view-list-header.component';
+import { ViewTasks } from './components/view-tasks/view-tasks.component';
 
 export const ViewList: React.FC<
   NativeStackScreenProps<NavigationTypes.AuthStackParams, 'ViewList'>
@@ -65,53 +66,7 @@ export const ViewList: React.FC<
         </View>
 
         <View style={{ flex: 3 }}>
-          {sortedTasks && sortedTasks?.length > 0 ? (
-            <ScrollView>
-              {sortedTasks?.map((task, idx) => {
-                return (
-                  <View key={idx} style={styles.itemLine}>
-                    <Text style={completedTaskStyle(task.completed).task}>
-                      {task.taskName}
-                    </Text>
-
-                    {task.completed === true ? (
-                      <Text
-                        style={completedTaskStyle(task.completed).taskOwner}
-                      />
-                    ) : (
-                      <View style={styles.iconContainer}>
-                        <TouchableOpacity
-                          // onPress={() => completeTask(task)}
-                          style={completedTaskStyle(task.completed).taskOwner}>
-                          <Text>
-                            <Icon
-                              name="circle"
-                              size={16}
-                              color={colors.lightBlack}
-                            />
-                          </Text>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity
-                          // onPress={() => _deleteTask(task)}
-                          style={completedTaskStyle(task.completed).taskOwner}>
-                          <Text>
-                            <Icon
-                              name="cross"
-                              size={20}
-                              color={colors.lightBlack}
-                            />
-                          </Text>
-                        </TouchableOpacity>
-                      </View>
-                    )}
-                  </View>
-                );
-              })}
-            </ScrollView>
-          ) : (
-            <Text style={styles.noTasks}>No tasks created yet</Text>
-          )}
+          <ViewTasks sortedTasks={sortedTasks} />
         </View>
       </View>
 
@@ -160,27 +115,7 @@ export const ViewList: React.FC<
   );
 };
 
-const completedTaskStyle = (bool: boolean) =>
-  StyleSheet.create({
-    task: {
-      flex: 3,
-      fontSize: 18,
-      color: bool === true ? colors.lightGrey : colors.lightBlack,
-      textDecorationLine: bool === true ? 'line-through' : 'none',
-    },
-    taskOwner: {
-      flex: 1,
-      fontSize: 14,
-      color: colors.lightGrey,
-    },
-  });
-
 const styles = StyleSheet.create({
-  iconContainer: {
-    flexDirection: 'row',
-    flex: 1,
-    alignItems: 'center',
-  },
   panelContainer: {
     flex: 1,
     backgroundColor: colors.white,
@@ -207,20 +142,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     // marginVertical: 10,
   },
-  itemLine: {
-    paddingLeft: 5,
-    borderLeftWidth: 1,
-    borderBottomWidth: 1,
-    borderLeftColor: colors.lightPink2,
-    borderBottomColor: colors.lightGreyBlue2,
-    flexDirection: 'row',
-    alignItems: 'center',
-    // alignContent: 'center',
-    // justifyContent: 'space-between',
-    // flex: 1,
-    paddingVertical: 5,
-  },
-
   button: {
     alignItems: 'center',
     padding: 10,
@@ -230,13 +151,6 @@ const styles = StyleSheet.create({
   },
 
   buttonText: { color: colors.lightOrange, fontSize: 25 },
-
-  noTasks: {
-    flex: 1,
-    fontSize: 25,
-    color: colors.lightGrey,
-    textAlign: 'center',
-  },
 
   footer: {
     flex: 2,
