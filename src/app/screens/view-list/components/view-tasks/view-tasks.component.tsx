@@ -8,20 +8,28 @@ import {
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Entypo';
-
 import { colors } from '../../../../../styles';
 import { TaskTypes } from '../../../../../types';
+import { getStoredToken } from '../../../../../utils/async-storage';
 
-interface Props {
-  sortedTasks: TaskTypes.Task[] | null | undefined;
-}
+import { TaskFacadeService } from '../../../../../stores/task/facades/task.facade';
+import { ListFacadeService } from '../../../../../stores/list/facades/list.facade';
 
-export const ViewTasks = (props: Props) => {
-  const { sortedTasks } = props;
+export const ViewTasks = () => {
+  const { completeTask } = TaskFacadeService();
+  const { sortedTasks } = ListFacadeService();
 
   if (!sortedTasks) {
     return <Text style={styles.noTasks}>No tasks created yet</Text>;
   }
+
+  const complete = async (task: TaskTypes.Task) => {
+    const payload: TaskTypes.CompleteTaskPayload = {
+      token: await getStoredToken(),
+      taskId: task.id,
+    };
+    completeTask(payload);
+  };
 
   return (
     <ScrollView>
@@ -37,7 +45,7 @@ export const ViewTasks = (props: Props) => {
             ) : (
               <View style={styles.iconContainer}>
                 <TouchableOpacity
-                  onPress={() => console.log('complete task')}
+                  onPress={() => complete(task)}
                   style={completedTaskStyle(task.completed).taskOwner}>
                   <Text>
                     <Icon name="circle" size={16} color={colors.lightBlack} />

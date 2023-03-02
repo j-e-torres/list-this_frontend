@@ -1,4 +1,4 @@
-import { takeEvery, put, call, select } from 'redux-saga/effects';
+import { takeEvery, put, call, select, takeLatest } from 'redux-saga/effects';
 import axios, { AxiosError } from 'axios';
 
 import { actions } from '../slice/list.slice';
@@ -39,6 +39,7 @@ function* fetchLists() {
     selectFetchListsPayload,
   );
 
+  console.log('LISTSSSSSAGGGAAA');
   try {
     const listsResponse: ApiResponse<ListTypes.List[]> = yield call(
       listApi.fetchLists,
@@ -68,10 +69,10 @@ function* updateList() {
 }
 
 function* fetchList() {
+  console.log('BURTMAN');
   const payload: ListTypes.FetchListPayload = yield select(
     selectFetchListPayload,
   );
-  console.log('SAGGAAA', payload);
 
   try {
     const listResponse: ApiResponse<ListTypes.List> = yield call(

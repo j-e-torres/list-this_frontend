@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { getBackendUrl } from '../utils/environment/environment';
 
-import { ListTypes, ApiResponse, AuthTypes } from '../types';
+import { ListTypes, ApiResponse, AuthTypes, TaskTypes } from '../types';
 
 export class ListApi {
   private backendApi: string;

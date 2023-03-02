@@ -1,22 +1,31 @@
 import React, { useEffect, useCallback } from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import {
   NativeStackNavigationProp,
   NativeStackScreenProps,
 } from '@react-navigation/native-stack';
 
-import Icon from 'react-native-vector-icons/Entypo';
-import { colors } from '../../../styles';
 import { ScreenWrapper } from '../../components/screen-wrapper/screen-wrapper';
 import {
   useInjectReducer,
   useInjectSaga,
 } from '../../../utils/redux-injectors.ts';
-import { sliceKey, reducer } from '../../../stores/list/slice/list.slice';
-import { fetchListSaga } from '../../../stores/list/sagas/list.saga';
 
+import {
+  sliceKey as listSliceKey,
+  reducer as listReducer,
+} from '../../../stores/list/slice/list.slice';
+import { fetchListSaga } from '../../../stores/list/sagas/list.saga';
 import { ListFacadeService } from '../../../stores/list/facades/list.facade';
+
+import {
+  sliceKey as taskSliceKey,
+  reducer as taskReducer,
+} from '../../../stores/task/slice/task.slice';
+import { completeTaskSaga } from '../../../stores/task/sagas/task.saga';
+import { TaskFacadeService } from '../../../stores/task/facades/task.facade';
+
 import { AuthFacadeService } from '../../../stores/auth/facades/auth.facade';
 import { getStoredToken } from '../../../utils/async-storage';
 
@@ -30,23 +39,28 @@ export const ViewList: React.FC<
   NativeStackScreenProps<NavigationTypes.AuthStackParams, 'ViewList'>
 > = (props) => {
   const { listId } = props.route.params;
-  useInjectReducer({ key: sliceKey, reducer: reducer });
-  useInjectSaga({ key: sliceKey, saga: fetchListSaga });
 
-  const { fetchList, sortedTasks } = ListFacadeService();
-  // const { authUser } = AuthFacadeService();
-  const fetchUserList = useCallback(async () => {
+  useInjectReducer({ key: listSliceKey, reducer: listReducer });
+  useInjectSaga({ key: listSliceKey, saga: fetchListSaga });
+  const { fetchList, list } = ListFacadeService();
+
+  useInjectReducer({ key: taskSliceKey, reducer: taskReducer });
+  useInjectSaga({ key: taskSliceKey, saga: completeTaskSaga });
+  const { task } = TaskFacadeService();
+
+  const fetchUserList = async () => {
     const payload: ListTypes.FetchListPayload = {
       listId,
       token: await getStoredToken(),
     };
     fetchList(payload);
-  }, [listId, fetchList]);
+  };
 
   useEffect(() => {
     fetchUserList();
   }, []);
 
+  // const { authUser } = AuthFacadeService();
   // const modalNavigation =
   //   useNavigation<
   //     NativeStackNavigationProp<NavigationTypes.RootStackParamList>
@@ -60,7 +74,7 @@ export const ViewList: React.FC<
         </View>
 
         <View style={{ flex: 3 }}>
-          <ViewTasks sortedTasks={sortedTasks} />
+          <ViewTasks />
         </View>
       </View>
 

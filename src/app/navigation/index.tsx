@@ -9,6 +9,7 @@ import { Root } from '../screens/root/root.screen';
 import { Home } from '../screens/home/home.screen';
 import { ViewLists } from '../screens/view-lists/view-lists.screen';
 import { ViewList } from '../screens/view-list/view-list.screen';
+import { TestView } from '../screens/__test/test.component';
 
 import { CreateListModal } from '../modals/create-list-modal/create-list.modal';
 import { CreateTaskModal } from '../modals/create-task-modal/create-task.modal';
@@ -71,6 +72,7 @@ const AuthScreenStack = () => {
         <AuthStack.Screen name="Home" component={Home} />
         <AuthStack.Screen name="ViewLists" component={ViewLists} />
         <AuthStack.Screen name="ViewList" component={ViewList} />
+        <AuthStack.Screen name="TestView" component={TestView} />
       </AuthStack.Group>
     </AuthStack.Navigator>
   );

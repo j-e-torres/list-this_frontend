@@ -17,6 +17,7 @@ export type AuthStackParams = {
   Home: undefined;
   ViewLists: undefined;
   ViewList: { listId: string };
+  TestView: { listId: string };
 };
 
 export type ModalStackParams = {

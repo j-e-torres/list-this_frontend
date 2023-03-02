@@ -40,7 +40,10 @@ export const selectUpdateListPayload = createSelector(
 
 export const selectFetchListPayload = createSelector(
   [selectDomain],
-  (state) => state.fetchListPayload,
+  (state) => {
+    console.log('SELLLEEEECTTORRR', state.fetchListPayload);
+    return state.fetchListPayload;
+  },
 );
 
 export const selectSortedTasks = createSelector([selectDomain], (state) => {
