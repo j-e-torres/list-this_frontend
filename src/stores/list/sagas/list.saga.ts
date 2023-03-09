@@ -39,7 +39,6 @@ function* fetchLists() {
     selectFetchListsPayload,
   );
 
-  console.log('LISTSSSSSAGGGAAA');
   try {
     const listsResponse: ApiResponse<ListTypes.List[]> = yield call(
       listApi.fetchLists,
@@ -69,7 +68,6 @@ function* updateList() {
 }
 
 function* fetchList() {
-  console.log('BURTMAN');
   const payload: ListTypes.FetchListPayload = yield select(
     selectFetchListPayload,
   );

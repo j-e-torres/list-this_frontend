@@ -39,12 +39,7 @@ export const TestView = (props) => {
       listId,
       token: await getStoredToken(),
     };
-    // const payload = {
-    //   listId: WOOOOOOOO.listId,
-    //   token: WOOOOOOOO.token,
-    // };
     fetchList(payload);
-    console.log('WOOOOOOOO', payload);
   }, [fetchList]);
 
   return (

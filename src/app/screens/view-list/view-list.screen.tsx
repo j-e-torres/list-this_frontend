@@ -58,7 +58,7 @@ export const ViewList: React.FC<
 
   useEffect(() => {
     fetchUserList();
-  }, []);
+  }, [task]);
 
   // const { authUser } = AuthFacadeService();
   // const modalNavigation =

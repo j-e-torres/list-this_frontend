@@ -41,7 +41,6 @@ export const selectUpdateListPayload = createSelector(
 export const selectFetchListPayload = createSelector(
   [selectDomain],
   (state) => {
-    console.log('SELLLEEEECTTORRR', state.fetchListPayload);
     return state.fetchListPayload;
   },
 );

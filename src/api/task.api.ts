@@ -13,7 +13,6 @@ export class TaskApi {
   completeTask = async (
     payload: TaskTypes.CompleteTaskPayload,
   ): Promise<ApiResponse<TaskTypes.Task>> => {
-    console.log('PPPPPPPPP', payload);
     const res = await axios.patch<ApiResponse<TaskTypes.Task>>(
       `${this.backendApi}/tasks/${payload.taskId}/complete`,
       {},

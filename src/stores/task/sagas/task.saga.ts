@@ -17,7 +17,7 @@ function* completeTask() {
       payload,
     );
 
-    yield put(actions.completeTaskSuccess(taskResponse.data.list));
+    yield put(actions.completeTaskSuccess(taskResponse.data.task));
   } catch (error) {
     if (axios.isAxiosError(error)) {
       const _error = error as AxiosError<ErrorTypes.ApiErrorResponse>;

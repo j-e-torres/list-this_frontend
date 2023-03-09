@@ -86,7 +86,6 @@ const listSlice = createSlice({
       state.updateListPayload = null;
     },
     fetchList(state, action: PayloadAction<ListTypes.FetchListPayload>) {
-      console.log('DISPATCHFETCHLIST');
       state.loading = true;
       state.error = null;
       state.fetchListPayload = action.payload;

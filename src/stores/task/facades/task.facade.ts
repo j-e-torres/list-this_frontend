@@ -20,7 +20,6 @@ export const TaskFacadeService = () => {
   );
 
   const completeTask = (payload: TaskTypes.CompleteTaskPayload) => {
-    console.log('KdKDKDKDD', payload);
     dispatch(actions.completeTask(payload));
   };
 
