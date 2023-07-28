@@ -15,12 +15,16 @@ export const TaskFacadeService = () => {
   const task: TaskTypes.Task | null = useSelector(selectTask);
   const taskError: ErrorTypes.AllErrors | null = useSelector(selectTaskError);
   const taskLoading: boolean = useSelector(selectTaskLoading);
-  const completeTaskPayload: TaskTypes.CompleteTaskPayload | null = useSelector(
+  const completeTaskPayload: TaskTypes.TaskPayload | null = useSelector(
     selectCompleteTaskPayload,
   );
 
-  const completeTask = (payload: TaskTypes.CompleteTaskPayload) => {
+  const completeTask = (payload: TaskTypes.TaskPayload) => {
     dispatch(actions.completeTask(payload));
+  };
+
+  const deleteTask = (payload: TaskTypes.TaskPayload) => {
+    dispatch(actions.deleteTask(payload));
   };
 
   return {
@@ -29,5 +33,6 @@ export const TaskFacadeService = () => {
     taskLoading,
     completeTask,
     completeTaskPayload,
+    deleteTask,
   };
 };

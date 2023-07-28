@@ -10,7 +10,7 @@ export interface ListState {
   fetchListsPayload: ListTypes.FetchListsPayload | null;
   updateListPayload: ListTypes.UpdateListPayload | null;
   fetchListPayload: ListTypes.FetchListPayload | null;
-  completeTaskPayload: TaskTypes.CompleteTaskPayload | null;
+  completeTaskPayload: TaskTypes.TaskPayload | null;
   task: TaskTypes.Task | null;
 }
 

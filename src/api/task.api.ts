@@ -11,11 +11,24 @@ export class TaskApi {
   }
 
   completeTask = async (
-    payload: TaskTypes.CompleteTaskPayload,
+    payload: TaskTypes.TaskPayload,
   ): Promise<ApiResponse<TaskTypes.Task>> => {
     const res = await axios.patch<ApiResponse<TaskTypes.Task>>(
       `${this.backendApi}/tasks/${payload.taskId}/complete`,
       {},
+      {
+        headers: {
+          authorization: `Bearer ${payload.token}`,
+        },
+      },
+    );
+    return res.data;
+  };
+  deleteTask = async (
+    payload: TaskTypes.TaskPayload,
+  ): Promise<ApiResponse<TaskTypes.Task>> => {
+    const res = await axios.delete<ApiResponse<TaskTypes.Task>>(
+      `${this.backendApi}/tasks/${payload.taskId}`,
       {
         headers: {
           authorization: `Bearer ${payload.token}`,

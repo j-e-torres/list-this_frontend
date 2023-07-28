@@ -22,3 +22,8 @@ export const selectCompleteTaskPayload = createSelector(
   [selectDomain],
   (state) => state.completeTaskPayload,
 );
+
+export const selectDeleteTaskPayload = createSelector(
+  [selectDomain],
+  (state) => state.deleteTaskPayload,
+);

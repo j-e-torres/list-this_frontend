@@ -16,7 +16,7 @@ import { TaskFacadeService } from '../../../../../stores/task/facades/task.facad
 import { ListFacadeService } from '../../../../../stores/list/facades/list.facade';
 
 export const ViewTasks = () => {
-  const { completeTask } = TaskFacadeService();
+  const { completeTask, deleteTask } = TaskFacadeService();
   const { sortedTasks } = ListFacadeService();
 
   if (!sortedTasks) {
@@ -24,18 +24,27 @@ export const ViewTasks = () => {
   }
 
   const complete = async (task: TaskTypes.Task) => {
-    const payload: TaskTypes.CompleteTaskPayload = {
+    const payload: TaskTypes.TaskPayload = {
       token: await getStoredToken(),
       taskId: task.id,
     };
     completeTask(payload);
   };
 
+  const deleteT = async (task: TaskTypes.Task) => {
+    const payload: TaskTypes.TaskPayload = {
+      token: await getStoredToken(),
+      taskId: task.id,
+    };
+
+    deleteTask(payload);
+  }
+
   return (
     <ScrollView>
       {sortedTasks?.map((task, idx) => {
         return (
-          <View key={idx} style={styles.itemLine}>
+          <View key={task.id} style={styles.itemLine}>
             <Text style={completedTaskStyle(task.completed).task}>
               {task.taskName}
             </Text>
@@ -53,7 +62,7 @@ export const ViewTasks = () => {
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                  onPress={() => console.log('delete task')}
+                  onPress={() => deleteT(task)}
                   style={completedTaskStyle(task.completed).taskOwner}>
                   <Text>
                     <Icon name="cross" size={20} color={colors.lightBlack} />

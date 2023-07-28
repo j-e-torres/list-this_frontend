@@ -23,7 +23,7 @@ import {
   sliceKey as taskSliceKey,
   reducer as taskReducer,
 } from '../../../stores/task/slice/task.slice';
-import { completeTaskSaga } from '../../../stores/task/sagas/task.saga';
+import { completeTaskSaga, deleteTaskSaga, rootTaskSaga } from '../../../stores/task/sagas/task.saga';
 import { TaskFacadeService } from '../../../stores/task/facades/task.facade';
 
 import { AuthFacadeService } from '../../../stores/auth/facades/auth.facade';
@@ -45,7 +45,9 @@ export const ViewList: React.FC<
   const { fetchList, list } = ListFacadeService();
 
   useInjectReducer({ key: taskSliceKey, reducer: taskReducer });
-  useInjectSaga({ key: taskSliceKey, saga: completeTaskSaga });
+  // useInjectSaga({ key: taskSliceKey, saga: completeTaskSaga });
+  // useInjectSaga({ key: taskSliceKey, saga: deleteTaskSaga });
+  useInjectSaga({ key: taskSliceKey, saga: rootTaskSaga });
   const { task } = TaskFacadeService();
 
   const fetchUserList = async () => {
@@ -56,6 +58,7 @@ export const ViewList: React.FC<
     fetchList(payload);
   };
 
+  // NOTE(juan): whenever task from the redux selector changes, it will fetch the User's list
   useEffect(() => {
     fetchUserList();
   }, [task]);

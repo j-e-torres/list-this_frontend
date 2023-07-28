@@ -5,7 +5,7 @@ export interface Task {
   listId: number;
 }
 
-export interface CompleteTaskPayload {
+export interface TaskPayload {
   taskId: string;
   token: string | null;
 }
