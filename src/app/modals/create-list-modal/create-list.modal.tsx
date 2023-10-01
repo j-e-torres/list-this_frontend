@@ -61,11 +61,9 @@ export const CreateListModal: React.FC = () => {
     }
 
     return () => {
-      if (list) {
         clearList();
-      }
     };
-  }, [list, authNavigation, clearList, listState]);
+  }, [list, authNavigation]);
 
   const addToList = () => {
     const { taskName, tasks } = listState;

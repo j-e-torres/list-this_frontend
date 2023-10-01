@@ -50,7 +50,7 @@ const listSlice = createSlice({
       state.list = null;
     },
     clearList(state, action: PayloadAction<null>) {
-      state.list = null;
+      state.list = action.payload;
     },
     fetchLists(state, action: PayloadAction<ListTypes.FetchListsPayload>) {
       state.loading = true;

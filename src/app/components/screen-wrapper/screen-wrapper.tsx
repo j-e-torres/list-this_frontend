@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, ViewProps } from 'react-native';
+import { StyleSheet, View, ViewProps, SafeAreaView } from 'react-native';
 import * as colors from '../../../styles/colors';
 
 export const ScreenWrapper = (
@@ -9,9 +9,9 @@ export const ScreenWrapper = (
     Readonly<{ children?: React.ReactNode }>,
 ) => {
   return (
-    <View {...props} style={[styles.wrapper, props.style]}>
+    <SafeAreaView {...props} style={[styles.wrapper, props.style]}>
       {props.children}
-    </View>
+    </SafeAreaView>
   );
 };
 

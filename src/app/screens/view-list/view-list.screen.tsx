@@ -42,7 +42,7 @@ export const ViewList: React.FC<
 
   useInjectReducer({ key: listSliceKey, reducer: listReducer });
   useInjectSaga({ key: listSliceKey, saga: fetchListSaga });
-  const { fetchList, list } = ListFacadeService();
+  const { fetchList, list, clearList } = ListFacadeService();
 
   useInjectReducer({ key: taskSliceKey, reducer: taskReducer });
   // useInjectSaga({ key: taskSliceKey, saga: completeTaskSaga });
@@ -61,6 +61,10 @@ export const ViewList: React.FC<
   // NOTE(juan): whenever task from the redux selector changes, it will fetch the User's list
   useEffect(() => {
     fetchUserList();
+
+    return () => {
+      clearList();
+    };
   }, [task]);
 
   // const { authUser } = AuthFacadeService();
