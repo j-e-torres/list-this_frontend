@@ -9,8 +9,11 @@ import {
 import { colors } from '../../../../../styles';
 
 import { ButtonIcon } from '../../../../components/button-icon/button-icon';
+interface ViewListHeaderProps {
+  fetchUserList: () => Promise<void>;
+}
 
-export const ViewListHeader: React.FC = (props) => {
+export const ViewListHeader: React.FC<ViewListHeaderProps> = (props) => {
   return (
     <View style={styles.iconHeader}>
       <ButtonIcon
@@ -18,7 +21,7 @@ export const ViewListHeader: React.FC = (props) => {
         iconSize={40}
         color={colors.lightBlack}
         buttonText="Refresh"
-        onPressFunction={() => console.log('REFRESH')}
+        onPressFunction={() => props.fetchUserList()}
       />
 
       <ButtonIcon
@@ -27,12 +30,12 @@ export const ViewListHeader: React.FC = (props) => {
         color={colors.lightBlack}
         buttonText="Add task"
         onPressFunction={() => console.log('Add task')}
-        // onPress={() =>
-        //   modalNavigation.navigate('Modals', {
-        //     screen: 'CreateTaskModal',
-        //     params: { id: list.id },
-        //   })
-        // }
+      // onPress={() =>
+      //   modalNavigation.navigate('Modals', {
+      //     screen: 'CreateTaskModal',
+      //     params: { id: list.id },
+      //   })
+      // }
       />
 
       {/* {userLogin.username === listOwner && (
@@ -58,7 +61,7 @@ export const ViewListHeader: React.FC = (props) => {
         color={colors.lightBlack}
         buttonText="View users"
         onPressFunction={() => console.log('View Users')}
-        // onPress={() => navigation.navigate('ViewUsersModal', { id })}
+      // onPress={() => navigation.navigate('ViewUsersModal', { id })}
       />
     </View>
   );

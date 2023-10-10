@@ -45,8 +45,6 @@ export const ViewList: React.FC<
   const { fetchList, list, clearList } = ListFacadeService();
 
   useInjectReducer({ key: taskSliceKey, reducer: taskReducer });
-  // useInjectSaga({ key: taskSliceKey, saga: completeTaskSaga });
-  // useInjectSaga({ key: taskSliceKey, saga: deleteTaskSaga });
   useInjectSaga({ key: taskSliceKey, saga: rootTaskSaga });
   const { task } = TaskFacadeService();
 
@@ -77,7 +75,7 @@ export const ViewList: React.FC<
     <ScreenWrapper>
       <View style={{ flex: 4 }}>
         <View style={{ flex: 1 }}>
-          <ViewListHeader />
+          <ViewListHeader fetchUserList={fetchUserList} />
         </View>
 
         <View style={{ flex: 3 }}>
