@@ -9,7 +9,13 @@ import {
   selectFetchListsPayload,
   selectUpdateListPayload,
 } from '../selectors/list.selectors';
-import { ErrorTypes, ApiResponse, ListTypes, TaskTypes } from '../../../types';
+import {
+  ErrorTypes,
+  ApiResponse,
+  ListTypes,
+  TaskTypes,
+  UserTypes,
+} from '../../../types';
 
 function* createList() {
   const payload: ListTypes.CreateListPayload = yield select(
@@ -90,6 +96,24 @@ function* fetchList() {
   }
 }
 
+function* fetchListUsers() {
+  const payload: ListTypes.FetchListPayload = yield select(
+    selectFetchListPayload,
+  );
+
+  try {
+    const listResponse: ApiResponse<UserTypes.User[]> = yield call(
+      listApi.fetchListUsers,
+      payload,
+    );
+
+    yield put(actions.fetchListUsersSuccess(listResponse.data.users));
+  } catch (error) {
+    const _error = new Error(ErrorTypes.GeneralErrors.GENERAL_ERROR);
+    yield put(actions.fetchListUsersFailure(_error));
+  }
+}
+
 export function* createListSaga() {
   yield takeEvery(actions.createList.type, createList);
 }
@@ -104,4 +128,8 @@ export function* updateListSaga() {
 
 export function* fetchListSaga() {
   yield takeEvery(actions.fetchList.type, fetchList);
+}
+
+export function* fetchListUsersSaga() {
+  yield takeEvery(actions.fetchListUsers.type, fetchListUsers);
 }

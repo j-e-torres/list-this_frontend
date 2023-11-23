@@ -7,9 +7,10 @@ import {
   selectListLoading,
   selectLists,
   selectSortedTasks,
+  selectListUsers,
 } from '../selectors/list.selectors';
 import { actions } from '../slice/list.slice';
-import { ListTypes, ErrorTypes, TaskTypes } from '../../../types';
+import { ListTypes, ErrorTypes, TaskTypes, UserTypes } from '../../../types';
 
 export const ListFacadeService = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ export const ListFacadeService = () => {
   const lists: ListTypes.List[] | null = useSelector(selectLists);
   const sortedTasks: TaskTypes.Task[] | null | undefined =
     useSelector(selectSortedTasks);
+  const listUsers: UserTypes.User[] | null = useSelector(selectListUsers);
 
   const createListDispatch = (payload: ListTypes.CreateListPayload): void => {
     dispatch(actions.createList(payload));
@@ -41,6 +43,10 @@ export const ListFacadeService = () => {
     dispatch(actions.fetchList(payload));
   };
 
+  const fetchListUsers = (payload: ListTypes.FetchListPayload) => {
+    dispatch(actions.fetchListUsers(payload));
+  };
+
   return {
     createListDispatch,
     clearList,
@@ -52,5 +58,7 @@ export const ListFacadeService = () => {
     lists,
     fetchList,
     sortedTasks,
+    fetchListUsers,
+    listUsers,
   };
 };

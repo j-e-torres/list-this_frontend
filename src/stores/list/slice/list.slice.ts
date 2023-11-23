@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { ErrorTypes, ListTypes, TaskTypes } from '../../../types';
+import { ErrorTypes, ListTypes, TaskTypes, UserTypes } from '../../../types';
 
 export interface ListState {
   loading: boolean;
@@ -12,6 +12,8 @@ export interface ListState {
   fetchListPayload: ListTypes.FetchListPayload | null;
   completeTaskPayload: TaskTypes.TaskPayload | null;
   task: TaskTypes.Task | null;
+
+  listUsers: UserTypes.User[] | null;
 }
 
 export const initialState: ListState = {
@@ -25,6 +27,7 @@ export const initialState: ListState = {
   fetchListPayload: null,
   completeTaskPayload: null,
   task: null,
+  listUsers: null,
 };
 
 const listSlice = createSlice({
@@ -52,6 +55,7 @@ const listSlice = createSlice({
     clearList(state, action: PayloadAction<null>) {
       state.list = action.payload;
     },
+
     fetchLists(state, action: PayloadAction<ListTypes.FetchListsPayload>) {
       state.loading = true;
       state.error = null;
@@ -69,6 +73,7 @@ const listSlice = createSlice({
       state.fetchListsPayload = null;
       state.lists = [];
     },
+
     updateList(state, action: PayloadAction<ListTypes.UpdateListPayload>) {
       state.loading = true;
       state.error = null;
@@ -85,6 +90,7 @@ const listSlice = createSlice({
       state.error = action.payload;
       state.updateListPayload = null;
     },
+
     fetchList(state, action: PayloadAction<ListTypes.FetchListPayload>) {
       state.loading = true;
       state.error = null;
@@ -101,6 +107,24 @@ const listSlice = createSlice({
       state.error = action.payload;
       state.fetchListPayload = null;
       state.list = null;
+    },
+
+    fetchListUsers(state, action: PayloadAction<ListTypes.FetchListPayload>) {
+      state.loading = true;
+      state.error = null;
+      state.fetchListPayload = action.payload;
+    },
+    fetchListUsersSuccess(state, action: PayloadAction<UserTypes.User[]>) {
+      state.loading = false;
+      state.error = null;
+      state.fetchListPayload = null;
+      state.listUsers = action.payload;
+    },
+    fetchListUsersFailure(state, action: PayloadAction<ErrorTypes.AllErrors>) {
+      state.loading = false;
+      state.error = action.payload;
+      state.fetchListPayload = null;
+      state.listUsers = null;
     },
   },
 });

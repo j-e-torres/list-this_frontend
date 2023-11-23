@@ -5,7 +5,7 @@ export interface User {
   role: Role;
   username: string;
   displayName: string;
-  lists: List[];
+  lists?: List[];
 }
 
 export enum Role {
