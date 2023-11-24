@@ -13,6 +13,7 @@ import { TestView } from '../screens/__test/test.component';
 
 import { CreateListModal } from '../modals/create-list-modal/create-list.modal';
 import { CreateTaskModal } from '../modals/create-task-modal/create-task.modal';
+import { ViewListUsersModal } from '../modals/view-list-users-modal/view-list-users.modal';
 
 import { getStoredToken } from '../../utils/async-storage';
 import {
@@ -84,6 +85,7 @@ const ModalScreenStack = () => {
       <ModalStack.Group>
         <ModalStack.Screen name="CreateListModal" component={CreateListModal} />
         <ModalStack.Screen name="CreateTaskModal" component={CreateTaskModal} />
+        <ModalStack.Screen name="ViewListUsersModal" component={ViewListUsersModal} />
       </ModalStack.Group>
     </ModalStack.Navigator>
   );

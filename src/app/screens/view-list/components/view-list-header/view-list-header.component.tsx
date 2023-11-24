@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import {
@@ -9,11 +9,21 @@ import {
 import { colors } from '../../../../../styles';
 
 import { ButtonIcon } from '../../../../components/button-icon/button-icon';
+import { ListTypes, NavigationTypes } from '../../../../../types';
+import { ListFacadeService } from '../../../../../stores/list/facades/list.facade';
 interface ViewListHeaderProps {
   fetchUserList: () => Promise<void>;
 }
 
 export const ViewListHeader: React.FC<ViewListHeaderProps> = (props) => {
+
+  const { list } = ListFacadeService();
+
+  const modalNavigation =
+    useNavigation<
+      NativeStackNavigationProp<NavigationTypes.RootStackParamList, 'Modals'>
+    >();
+
   return (
     <View style={styles.iconHeader}>
       <ButtonIcon
@@ -60,7 +70,13 @@ export const ViewListHeader: React.FC<ViewListHeaderProps> = (props) => {
         iconSize={40}
         color={colors.lightBlack}
         buttonText="View users"
-        onPressFunction={() => console.log('View Users')}
+        onPressFunction={() =>
+          modalNavigation.navigate('Modals', {
+            screen: 'ViewListUsersModal',
+            params: { listId: list?.id },
+          })
+        }
+      // onPressFunction={() => console.log('View Users')}
       // onPress={() => navigation.navigate('ViewUsersModal', { id })}
       />
     </View>

@@ -28,6 +28,6 @@ export interface UpdateListPayload {
 }
 
 export interface FetchListPayload {
-  listId: string;
+  listId?: string;
   token: string | null;
 }
