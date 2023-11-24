@@ -9,36 +9,35 @@ import Icon from 'react-native-vector-icons/Entypo';
 import {
   useInjectReducer,
   useInjectSaga,
-} from '../../../utils/redux-injectors.ts/index.js';
+} from '../../../utils/redux-injectors.ts';
 
-import { ScreenWrapper } from '../../components/screen-wrapper/screen-wrapper.js';
+import { ScreenWrapper } from '../../components/screen-wrapper/screen-wrapper';
 
-import { sliceKey, reducer } from '../../../stores/list/slice/list.slice.js';
-import { createListSaga } from '../../../stores/list/sagas/list.saga.js';
-import { ListFacadeService } from '../../../stores/list/facades/list.facade.js';
-import { AuthFacadeService } from '../../../stores/auth/facades/auth.facade.js';
+import { sliceKey, reducer } from '../../../stores/list/slice/list.slice';
+import { fetchListUsersSaga } from '../../../stores/list/sagas/list.saga';
+import { ListFacadeService } from '../../../stores/list/facades/list.facade';
+import { AuthFacadeService } from '../../../stores/auth/facades/auth.facade';
 
-import { Button } from '../../components/button/button.js';
-import { colors } from '../../../styles/index.js';
-import { getStoredToken } from '../../../utils/async-storage/index.js';
+import { Button } from '../../components/button/button';
+import { colors } from '../../../styles';
+import { getStoredToken } from '../../../utils/async-storage';
 
 import {
   CreateListModalState,
   Variant,
   NavigationTypes,
   ListTypes,
-} from '../../../types/index.js';
+} from '../../../types';
 
 export const ViewListUsersModal: React.FC<NativeStackScreenProps<NavigationTypes.ModalStackParams, 'ViewListUsersModal'>> = (props) => {
   useInjectReducer({ key: sliceKey, reducer: reducer });
-  useInjectSaga({ key: sliceKey, saga: createListSaga });
+  useInjectSaga({ key: sliceKey, saga: fetchListUsersSaga });
 
   const { listUsers, fetchListUsers, listLoading } = ListFacadeService();
-  const { authUser } = AuthFacadeService();
 
   useEffect(() => {
     getListUsers();
-  });
+  }, []);
 
   const getListUsers = async () => {
     const payload: ListTypes.FetchListPayload = {
