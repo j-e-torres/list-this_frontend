@@ -53,10 +53,12 @@ export const ViewListUsersModal: React.FC<NativeStackScreenProps<NavigationTypes
 
   return (
     <ScreenWrapper>
-      <ScrollView>
-        {listUsers?.map((user, idx) => {
-          return <Text style={styles.displayName} key={idx}>{user.displayName}</Text>;
-        })}
+      <ScrollView >
+        <View>
+          {listUsers?.map((user, idx) => {
+            return <Text style={styles.displayName} key={idx}>{user.displayName}</Text>;
+          })}
+        </View>
       </ScrollView>
     </ScreenWrapper>
   );
@@ -66,5 +68,6 @@ const styles = StyleSheet.create({
   displayName: {
     fontSize: 30,
     color: colors.lightBlack,
+    marginBottom: 12,
   },
 });
